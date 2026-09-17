@@ -1,0 +1,102 @@
+{
+  "brand_identity": {
+    "name": "VELARYON",
+    "tagline": "Intelligence at Sea.",
+    "category": "Autonomous Maritime Systems & Precision Robotics",
+    "creative_direction": "CINEMATIC MARITIME × ADVANCED ROBOTICS × EDITORIAL MINIMALISM × PRECISION ENGINEERING",
+    "tone_and_voice": "Authoritative, restrained, engineered, cinematic, forward-looking. Uses precise early-stage language ('designed to', 'intended to', 'being developed for', 'concept') with zero fluff or fabricated metrics.",
+    "logo_specifications": {
+      "mark": "Dark steel-blue 'V' ship-bow mark with two hydro-dynamic wake waves beneath it",
+      "wordmark": "VELARYON (Custom high-tracking uppercase serif/sans hybrid)",
+      "rule": "Never recolor, distort, or invert the bow mark. Preserve dark steel-blue tint against deep dark or stark bright backgrounds."
+    }
+  },
+  "colors": {
+    "palette": {
+      "near_black": "#05070a",
+      "deep_navy": "#090d16",
+      "cool_charcoal": "#121722",
+      "steel_blue_dark": "#1e293b",
+      "steel_blue_accent": "#3b526b",
+      "ocean_blue": "#0284c7",
+      "deep_horizon_blue": "#0f2b48",
+      "editorial_light_bg": "#f4f5f7",
+      "editorial_off_white": "#fcfdfd",
+      "warm_grey_border": "#e2e6ea",
+      "text_dark_mode_primary": "#f1f5f9",
+      "text_dark_mode_muted": "#94a3b8",
+      "text_light_mode_primary": "#0f172a",
+      "text_light_mode_muted": "#475569"
+    },
+    "section_rhythm": "Strict alternating rhythm between dark cinematic sections (deep navy #090d16 / near black #05070a) and stark bright editorial sections (#f4f5f7 / #fcfdfd). Avoid continuous dark overload.",
+    "forbidden_colors": ["#7351B7", "#1B93A4", "neon cyan cyberpunk", "generic SaaS vibrant blue gradients", "bouncy neon accents"]
+  },
+  "typography": {
+    "heading_font": "Cabinet Grotesk / Playfair Display / Cormorant Garamond for high-impact editorial titles",
+    "body_font": "Inter / IBM Plex Sans for technical precision and extreme readability",
+    "mono_font": "JetBrains Mono / Source Code Pro for telemetry, chapter labels, and specifications",
+    "scale": {
+      "h1_hero": "text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[0.95]",
+      "h2_section": "text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight",
+      "h3_subtitle": "text-xl sm:text-2xl font-medium tracking-normal",
+      "chapter_number": "font-mono text-xs sm:text-sm uppercase tracking-[0.25em] text-slate-400 dark:text-slate-500",
+      "body_text": "text-base sm:text-lg leading-relaxed text-slate-300 dark:text-slate-300 light:text-slate-700",
+      "technical_label": "font-mono text-xs uppercase tracking-[0.2em]"
+    },
+    "chapter_labels": ["01 / MISSION", "02 / PLATFORM", "03 / AUTONOMY", "04 / TECHNOLOGY", "05 / MISSIONS", "06 / FORWARD", "07 / VELARYON"]
+  },
+  "motion_and_interactions": {
+    "engine": "Framer Motion + Lenis Smooth Scroll",
+    "philosophy": "HEAVY, CONTROLLED, PRECISE, ENGINEERED. Avoid springy SaaS bounces. Use cubic-bezier(0.16, 1, 0.3, 1) or cubic-bezier(0.25, 1, 0.5, 1) ease curves.",
+    "signature_loading_experience": {
+      "duration": "2.8 seconds total, seamless transition",
+      "sequence": "1. Screen begins near-black (#05070a) with faint oceanic wave audio/visual grid.\n2. Ship/bow portion of VELARYON 'V' logo approaches slowly from the horizon.\n3. Waves animate as a wake originating at the bow and propagating outward in crisp vector geometry.\n4. Resolves into exact logo geometry.\n5. Logo smoothly scales down and glides directly into the top-left navbar position while the ocean hero scene reveals underneath. No page fade out."
+    },
+    "microinteractions": {
+      "buttons": "Editorial rectangular buttons with sharp or subtle 2px corner radius, magnetic text alignment, and right arrow offset movement on hover ('EXPLORE PLATFORM ↗').",
+      "links": "Refined underline animation expanding from left to right with 1px offset.",
+      "scroll": "Lenis smooth scroll enabled across all pages for weighty momentum."
+    }
+  },
+  "layout_and_structure": {
+    "grid_strategy": "Asymmetric Swiss editorial grid with heavy negative space, thin 1px precision grid lines, and crisp alignment bounds.",
+    "page_structure": {
+      "home_page": [
+        "Signature Loading Experience",
+        "Hero: Full-bleed cinematic ocean vessel render + 'AUTONOMOUS MARITIME SYSTEMS' + 'Intelligence at Sea.' + 'EXPLORE VELARYON ↓'",
+        "01 / MISSION: Dark cinematic ocean scale visualization — how vastness demands autonomous endurance",
+        "02 / PLATFORM: Bright off-white technical environment, large side-profile vessel diagram with interactive annotation lines (SENSING / COMPUTE / NAVIGATION / COMMUNICATION / MISSION SYSTEMS)",
+        "03 / AUTONOMY Teaser: Full-screen sequential text trigger (PERCEIVE → UNDERSTAND → DECIDE → ACT)",
+        "04 / TECHNOLOGY: Asymmetric 4-pillar grid (AUTONOMY, PERCEPTION, INTELLIGENCE, CONNECTIVITY)",
+        "05 / MISSIONS: Interactive operational scenarios (MARITIME AWARENESS, INFRASTRUCTURE MONITORING, OCEAN INTELLIGENCE, MARITIME SECURITY)",
+        "Engineering Philosophy: Large typography display section ('Autonomous by design / Software at the core / Adaptable by architecture')",
+        "06 / FORWARD Roadmap: Thin animated progress line from CONCEPT → ENGINEERING → PROTOTYPE → SEA TRIALS → MISSION VALIDATION → SCALE",
+        "07 / VELARYON Company: Bright editorial startup section with founder/team portraits & investor focus",
+        "Final CTA: Cinematic ocean horizon with traveling vessel ('The next era begins at sea.' + 'START A CONVERSATION ↗')",
+        "Footer: Minimalistic precision footer with telemetry indicators and legal disclosures"
+      ],
+      "how_it_works_page": "Dedicated 7-stage sticky scrollytelling experience: MISSION → DEPLOY → PERCEIVE → UNDERSTAND → DECIDE → ACT → CONNECT → MISSION COMPLETE."
+    }
+  },
+  "media_assets": {
+    "hero_vessel": "https://images.pexels.com/photos/9808226/pexels-photo-9808226.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "ocean_dark_waves": "https://images.pexels.com/photos/15305609/pexels-photo-15305609.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "cargo_vessel_aerial": "https://images.pexels.com/photos/10413680/pexels-photo-10413680.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "team_portrait_1": "https://images.unsplash.com/photo-1581091224003-01e7c2e69f6f?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "team_portrait_2": "https://images.pexels.com/photos/39058021/pexels-photo-39058021.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "team_portrait_3": "https://images.unsplash.com/photo-1577097997335-658d0356a7f3?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "usage_instructions": "Use hero_vessel for full-bleed background hero with poster crossfade. Use ocean_dark_waves for scale & autonomy sections. Use team portraits in bright editorial card layouts."
+  },
+  "accessibility_and_testing": {
+    "prefers_reduced_motion": "Disable smooth scroll and complex SVG wake particle animations when prefers-reduced-motion is active. Provide instant loader finish.",
+    "testing_attribute_requirement": "All interactive buttons, inputs, links, tabs, and key metric labels MUST contain unique kebab-case data-testid attributes (e.g., data-testid='hero-explore-button', data-testid='contact-form-submit').",
+    "contrast_standards": "Ensure high contrast WCAG AA on all dark text over bright sections and white text over dark navy/black sections."
+  },
+  "instructions_to_main_agent": [
+    "Implement Lenis smooth scrolling for weighted cinematic page feel.",
+    "Build the custom 2.8s SVG bow-wake intro loader that seamlessly moves into the fixed navbar position.",
+    "Ensure contrast alternating sections: dark cinematic hero -> bright off-white platform section -> dark autonomy section -> bright editorial company section.",
+    "Never use generic rounded SaaS cards or neon cyberpunk glows.",
+    "Use data-testid attributes on all key interactive elements across home, mission, platform, technology, how-it-works, company, and contact pages."
+  ]
+}
