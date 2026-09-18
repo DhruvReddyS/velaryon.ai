@@ -1,92 +1,93 @@
-import ChapterLabel from "@/components/ChapterLabel";
-import ArrowLink from "@/components/ArrowLink";
-import { Reveal } from "@/components/Reveal";
+import { Eyebrow, Frame, PageHero, Reveal, Rule } from "@/components/Primitives";
+import { TECH } from "@/components/home/Technology";
+import CTA from "@/components/home/CTA";
 
-const PILLARS = [
-  {
-    n: "T/01",
-    title: "AUTONOMY",
-    body: "The autonomy stack is being designed to own the full mission loop: understand the task, plan the route, adapt to what the ocean presents, and execute — with humans supervising, not steering.",
-    detail: "Mission planning / Behaviour / Supervision",
-  },
-  {
-    n: "T/02",
-    title: "PERCEPTION",
-    body: "A sensing concept intended to maintain a continuous, all-around picture of the surface: other vessels, navigation markers, obstacles and coastline, day and night.",
-    detail: "Detection / Classification / Coverage",
-  },
-  {
-    n: "T/03",
-    title: "INTELLIGENCE",
-    body: "Raw contacts become tracks; tracks become understanding. The intelligence layer is designed to fuse sensing into situational awareness the autonomy stack can act on.",
-    detail: "Fusion / Identification / Tracking",
-  },
-  {
-    n: "T/04",
-    title: "CONNECTIVITY",
-    body: "Autonomy does not mean isolation. The platform is envisioned to stay connected to remote operations — supervised, taskable and accountable.",
-    detail: "Comms link / Remote operations / Tasking",
-  },
+const LAYERS = [
+  { k: "L4", t: "Mission", c: "Objectives, constraints and rules of behaviour set by operators." },
+  { k: "L3", t: "Autonomy", c: "Perception, world model, decision logic and behaviour arbitration." },
+  { k: "L2", t: "Systems", c: "Common power, data and mechanical architecture across the family." },
+  { k: "L1", t: "Platform", c: "Hull, propulsion and superstructure shaped around the systems they carry." },
 ];
 
 export default function TechnologyPage() {
   return (
-    <div data-testid="technology-page" className="bg-abyss">
-      <section className="flex min-h-[70svh] items-end">
-        <div className="mx-auto w-full max-w-7xl px-5 pb-20 pt-40 md:px-10">
-          <Reveal>
-            <ChapterLabel index="04" title="Technology" />
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h1 className="mt-8 font-display text-5xl font-medium leading-[0.98] tracking-tight text-white sm:text-7xl">
-              Intelligence beneath
-              <br />
-              the surface.
-            </h1>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <p className="mt-8 max-w-xl text-lg leading-relaxed text-mist">
-              Four interlocking layers of engineering intent. Each is under development; none is
-              claimed as fielded capability.
+    <div data-testid="technology-page" className="bg-ink">
+      <PageHero
+        index="04"
+        title="Technology"
+        testId="technology-hero"
+        heading={
+          <>
+            One stack.
+            <br />
+            Every platform.
+          </>
+        }
+        lead="Velaryon is building a common autonomy and systems architecture. The vessels in the family differ in form and configuration; what runs them does not."
+        meta={[
+          { k: "Status", v: "In development", signal: true },
+          { k: "Approach", v: "Software-defined" },
+        ]}
+      />
+
+      <section className="wrap py-24 md:py-32">
+        <div className="grid gap-12 lg:grid-cols-12">
+          <Reveal className="lg:col-span-4">
+            <Eyebrow index="04.1" title="Architecture" />
+            <p className="mt-8 max-w-sm text-sm leading-relaxed text-fog">
+              Four layers, from what a mission needs down to the steel that carries it. Each layer is
+              designed to change independently of the others.
             </p>
           </Reveal>
-        </div>
-      </section>
-
-      <section className="pb-28">
-        <div className="mx-auto max-w-7xl px-5 md:px-10">
-          {PILLARS.map((p, i) => (
-            <Reveal key={p.n}>
-              <article
-                data-testid={`tech-${p.title.toLowerCase()}`}
-                className={`grid gap-8 border-t border-white/[0.08] py-16 md:grid-cols-12 md:py-20 ${
-                  i % 2 === 1 ? "" : ""
-                }`}
-              >
-                <div className="md:col-span-3">
-                  <p className="font-mono text-[10px] tracking-[0.3em] text-mist/60">{p.n}</p>
-                  <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
-                    {p.title}
-                  </h2>
+          <div className="lg:col-span-8">
+            <Rule />
+            {LAYERS.map((l, i) => (
+              <Reveal key={l.k} delay={0.06 * i}>
+                <div data-testid={`layer-${l.k.toLowerCase()}`} className="grid gap-4 border-b border-line py-7 md:grid-cols-[80px_200px_1fr] md:gap-8">
+                  <span className="label text-signal">{l.k}</span>
+                  <h2 className="text-2xl font-medium tracking-tight text-chalk">{l.t}</h2>
+                  <p className="text-sm leading-relaxed text-fog">{l.c}</p>
                 </div>
-                <div className="md:col-span-6">
-                  <p className="text-base leading-relaxed text-slate-300">{p.body}</p>
-                </div>
-                <div className="md:col-span-3 md:text-right">
-                  <p className="font-mono text-[10px] uppercase leading-loose tracking-[0.25em] text-mist/60">
-                    {p.detail}
-                  </p>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-          <div className="mt-8">
-            <ArrowLink to="/how-it-works" testId="technology-to-hiw-link">
-              Experience the Autonomy Loop
-            </ArrowLink>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
+
+      <section className="border-t border-line-soft bg-graphite py-24 md:py-32">
+        <div className="wrap">
+          <Reveal>
+            <Eyebrow index="04.2" title="Capabilities in development" />
+          </Reveal>
+          <div className="mt-12 grid gap-px bg-line md:grid-cols-2 xl:grid-cols-3">
+            {TECH.map((t, i) => (
+              <Reveal key={t.n} delay={0.05 * i} className="bg-graphite">
+                <div data-testid={`tech-card-${t.n}`} className="h-full p-8 md:p-10">
+                  <div className="flex items-center justify-between">
+                    <span className="label-xs text-fog">{t.n}</span>
+                    <span aria-hidden className="h-1.5 w-1.5 bg-line" />
+                  </div>
+                  <h3 className="mt-12 text-2xl font-medium tracking-tight text-chalk">{t.t}</h3>
+                  <p className="mt-4 text-sm leading-relaxed text-fog">{t.c}</p>
+                </div>
+              </Reveal>
+            ))}
+            <Reveal delay={0.3} className="bg-graphite">
+              <Frame className="relative h-full min-h-[280px] overflow-hidden bg-carbon">
+                <img
+                  src="/assets/viper.webp"
+                  alt="Velaryon VIPER concept — integrated superstructure detail"
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                  style={{ objectPosition: "60% 45%" }}
+                />
+              </Frame>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <CTA />
     </div>
   );
 }

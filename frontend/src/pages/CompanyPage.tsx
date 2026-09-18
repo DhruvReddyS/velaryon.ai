@@ -1,140 +1,89 @@
-import { ArrowUpRight } from "lucide-react";
-import ChapterLabel from "@/components/ChapterLabel";
-import ArrowLink from "@/components/ArrowLink";
-import { Reveal } from "@/components/Reveal";
+import { Btn, Eyebrow, PageHero, Reveal, Rule } from "@/components/Primitives";
+import CTA from "@/components/home/CTA";
 
 const BLOCKS = [
-  { t: "WHO WE ARE", c: "An Australian early-stage maritime technology company developing autonomous surface platforms and the software that operates them." },
-  { t: "MISSION", c: "To make presence at sea persistent, precise and scalable through autonomy." },
-  { t: "VISION", c: "An ocean where autonomous platforms handle the routine, the remote and the hazardous — and people direct the mission." },
-  { t: "WHY NOW", c: "Autonomy, sensing and compute have matured in other domains. We believe the maritime domain is next — and we intend to be part of proving it." },
+  { t: "Who we are", c: "An Australian early-stage maritime technology company developing autonomous surface platform concepts and the software that operates them." },
+  { t: "Mission", c: "To make presence at sea persistent, precise and scalable through autonomy." },
+  { t: "Vision", c: "An ocean where autonomous platforms handle the routine, the remote and the hazardous — and people direct the mission." },
+  { t: "Why now", c: "Autonomy, sensing and compute have matured in other domains. We believe the maritime domain is next — and we intend to be part of proving it." },
 ];
 
 const TEAM = [
-  {
-    name: "ARIA NOVAK",
-    role: "Founder & CEO",
-    bio: "Leads Velaryon's vision and strategy. Background in naval architecture and maritime robotics. Profile placeholder — full biography to be confirmed.",
-    img: "/assets/team-1.jpg",
-  },
-  {
-    name: "MAYA CHEN",
-    role: "Co-founder & CTO",
-    bio: "Owns the autonomy and software architecture. Background in robotics perception and autonomous systems. Profile placeholder — full biography to be confirmed.",
-    img: "/assets/team-2.jpg",
-  },
-  {
-    name: "TOMAS ERIKSSON",
-    role: "Head of Engineering",
-    bio: "Leads platform engineering and integration. Background in marine systems and hardware. Profile placeholder — full biography to be confirmed.",
-    img: "/assets/team-3.jpg",
-  },
+  { name: "Aria Novak", role: "Founder & CEO", bio: "Leads Velaryon's vision and strategy. Background in naval architecture and maritime robotics.", img: "/assets/team-1.jpg" },
+  { name: "Maya Chen", role: "Co-founder & CTO", bio: "Owns the autonomy and software architecture. Background in robotics perception and autonomous systems.", img: "/assets/team-2.jpg" },
+  { name: "Tomas Eriksson", role: "Head of Engineering", bio: "Leads platform engineering and integration. Background in marine systems and hardware.", img: "/assets/team-3.jpg" },
 ];
 
 export default function CompanyPage() {
   return (
-    <div data-testid="company-page" className="bg-paper text-slate-900">
-      <section className="flex min-h-[60svh] items-end">
-        <div className="mx-auto w-full max-w-7xl px-5 pb-20 pt-40 md:px-10">
-          <Reveal>
-            <ChapterLabel index="07" title="Company" light />
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h1 className="mt-8 font-display text-5xl font-medium leading-[0.98] tracking-tight sm:text-7xl">
-              BUILDING FOR
-              <br />
-              AN AUTONOMOUS OCEAN.
-            </h1>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <p className="mt-8 font-mono text-[10px] uppercase tracking-[0.35em] text-slate-500">
-              VELARYON / AUSTRALIA
-            </p>
-          </Reveal>
+    <div data-testid="company-page" className="bg-ink">
+      <PageHero
+        index="07"
+        title="Company"
+        testId="company-hero"
+        heading={
+          <>
+            Building for an
+            <br />
+            autonomous ocean.
+          </>
+        }
+        lead="Velaryon is an early-stage company. We would rather show you what we're working on than tell you what we've achieved."
+        meta={[
+          { k: "Founded", v: "Australia" },
+          { k: "Stage", v: "Concept", signal: true },
+        ]}
+      />
+
+      <section className="wrap py-24 md:py-32">
+        <div className="grid gap-px bg-line md:grid-cols-2">
+          {BLOCKS.map((b, i) => (
+            <Reveal key={b.t} delay={0.06 * i} className="bg-ink">
+              <div data-testid={`company-block-${b.t.toLowerCase().replace(/\s+/g, "-")}`} className="h-full p-8 md:p-12">
+                <p className="label-xs text-fog">{b.t}</p>
+                <p className="mt-8 max-w-md text-xl leading-snug text-chalk">{b.c}</p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      <section className="pb-24">
-        <div className="mx-auto max-w-7xl px-5 md:px-10">
-          <div className="grid gap-px bg-line md:grid-cols-2">
-            {BLOCKS.map((b, i) => (
-              <Reveal key={b.t} delay={0.06 * i} className="bg-paper">
-                <div data-testid={`company-block-${b.t.toLowerCase().replace(/\s+/g, "-")}`} className="p-8 md:p-12">
-                  <h2 className="font-mono text-xs uppercase tracking-[0.32em] text-slate-500">{b.t}</h2>
-                  <p className="mt-6 max-w-md text-lg leading-relaxed text-slate-800">{b.c}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-line py-24 md:py-36">
-        <div className="mx-auto max-w-7xl px-5 md:px-10">
+      <section className="border-t border-line-soft bg-bone py-24 text-carbon md:py-32">
+        <div className="wrap">
           <Reveal>
-            <ChapterLabel index="07.1" title="Team" light />
+            <Eyebrow index="07.1" title="Team" light />
           </Reveal>
-          <div className="mt-16 space-y-24 md:space-y-32">
+          <Rule light className="mt-12" />
+          <div className="grid divide-y divide-bone-line md:grid-cols-3 md:divide-x md:divide-y-0">
             {TEAM.map((m, i) => (
-              <Reveal key={m.name}>
-                <article
-                  data-testid={`team-member-${m.name.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="grid items-center gap-10 md:grid-cols-12"
-                >
-                  <div className={`md:col-span-6 ${i % 2 === 1 ? "md:order-2" : ""}`}>
-                    <div className="overflow-hidden">
-                      <img
-                        src={m.img}
-                        alt={`${m.name}, ${m.role} at Velaryon — placeholder portrait`}
-                        loading="lazy"
-                        className="aspect-[4/5] w-full object-cover grayscale transition-all duration-700 hover:grayscale-0"
-                      />
-                    </div>
+              <Reveal key={m.name} delay={0.08 * i}>
+                <article data-testid={`team-member-${m.name.toLowerCase().replace(/\s+/g, "-")}`} className={`py-10 ${i > 0 ? "md:pl-10" : ""} ${i < TEAM.length - 1 ? "md:pr-10" : ""}`}>
+                  <div className="aspect-[4/5] overflow-hidden bg-bone-line">
+                    <img
+                      src={m.img}
+                      alt={`${m.name}, ${m.role} at Velaryon — placeholder portrait`}
+                      loading="lazy"
+                      className="h-full w-full object-cover grayscale"
+                    />
                   </div>
-                  <div className={`md:col-span-5 ${i % 2 === 1 ? "md:order-1 md:col-start-1" : "md:col-start-8"}`}>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-slate-400">
-                      {String(i + 1).padStart(2, "0")}
-                    </p>
-                    <h3 className="mt-4 font-display text-3xl font-medium tracking-tight sm:text-4xl">
-                      {m.name}
-                    </h3>
-                    <p className="mt-2 font-mono text-xs uppercase tracking-[0.28em] text-slate-500">{m.role}</p>
-                    <p className="mt-6 max-w-sm text-sm leading-relaxed text-slate-600">{m.bio}</p>
-                    <a
-                      href="https://www.linkedin.com/"
-                      target="_blank"
-                      rel="noreferrer"
-                      data-testid={`team-linkedin-${m.name.toLowerCase().replace(/\s+/g, "-")}`}
-                      className="group mt-8 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.28em] text-slate-700 transition-colors hover:text-slate-950"
-                    >
+                  <p className="label-xs mt-8 text-bone-fog">{String(i + 1).padStart(2, "0")}</p>
+                  <h2 className="mt-4 text-2xl font-medium tracking-tight">{m.name}</h2>
+                  <p className="label-xs mt-2 text-bone-fog">{m.role}</p>
+                  <p className="mt-5 text-sm leading-relaxed text-bone-fog">{m.bio}</p>
+                  <div className="mt-6">
+                    <Btn href="https://www.linkedin.com/" external variant="link" light testId={`team-linkedin-${m.name.toLowerCase().replace(/\s+/g, "-")}`}>
                       LinkedIn
-                      <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
-                    </a>
+                    </Btn>
                   </div>
                 </article>
               </Reveal>
             ))}
           </div>
-          <p className="mt-20 font-mono text-[10px] uppercase tracking-[0.3em] text-slate-400">
-            Team profiles shown are placeholders pending final company content
-          </p>
+          <p className="label-xs mt-12 text-bone-fog">Team profiles shown are placeholders pending final company content</p>
         </div>
       </section>
 
-      <section className="bg-abyss py-28 text-white">
-        <div className="mx-auto max-w-7xl px-5 md:px-10">
-          <Reveal>
-            <h2 className="max-w-2xl font-display text-3xl font-medium tracking-tight sm:text-4xl">
-              Building alongside investors, partners and collaborators.
-            </h2>
-          </Reveal>
-          <div className="mt-10">
-            <ArrowLink to="/contact" testId="company-contact-link">
-              Start a Conversation
-            </ArrowLink>
-          </div>
-        </div>
-      </section>
+      <CTA />
     </div>
   );
 }

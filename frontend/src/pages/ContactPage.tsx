@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-import ChapterLabel from "@/components/ChapterLabel";
-import { Reveal } from "@/components/Reveal";
+import { EASE, Eyebrow, Frame, Meta, Reveal } from "@/components/Primitives";
 import { apiPost } from "@/lib/api";
 
-const INTERESTS = ["INVESTMENT", "STRATEGIC PARTNERSHIP", "TECHNOLOGY COLLABORATION", "GENERAL"];
+const INTERESTS = ["Investment", "Strategic partnership", "Technology collaboration", "General"];
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -27,128 +26,116 @@ export default function ContactPage() {
   };
 
   const field =
-    "w-full border-b border-white/20 bg-transparent py-3 text-base text-white placeholder:text-slate-500 focus:border-white focus:outline-none transition-colors duration-300";
+    "w-full border border-line bg-carbon px-4 py-3.5 text-base text-chalk placeholder:text-fog/60 transition-colors duration-300 focus:border-chalk/60 focus:outline-none";
+  const lbl = "label-xs mb-3 block text-fog";
 
   return (
-    <div data-testid="contact-page" className="relative min-h-screen bg-abyss">
-      <img
-        src="/assets/vessel-sunset.webp"
-        alt=""
-        aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20"
-      />
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-b from-abyss/70 via-abyss/85 to-abyss" />
-
-      <div className="relative mx-auto grid max-w-7xl gap-16 px-5 pb-28 pt-40 md:grid-cols-2 md:px-10">
-        <div>
+    <div data-testid="contact-page" className="bg-ink">
+      <section className="border-b border-line-soft pt-36 pb-16 md:pt-44 md:pb-24">
+        <div className="wrap">
           <Reveal>
-            <ChapterLabel index="08" title="Contact" />
+            <Eyebrow index="08" title="Contact" />
           </Reveal>
-          <Reveal delay={0.1}>
-            <h1 className="mt-8 font-display text-5xl font-medium leading-[0.98] tracking-tight text-white sm:text-6xl">
-              Start a
-              <br />
-              conversation.
-            </h1>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <p className="mt-8 max-w-sm text-base leading-relaxed text-mist">
-              Velaryon is engaging early with investors, strategic partners and technology
-              collaborators. Tell us who you are and what you're exploring.
-            </p>
-            <div className="mt-10 space-y-2">
-              {INTERESTS.slice(0, 3).map((i) => (
-                <p key={i} className="font-mono text-[10px] uppercase tracking-[0.3em] text-mist/70">
-                  {i}
-                </p>
-              ))}
-            </div>
-            <a
-              href="mailto:hello@velaryon.com"
-              data-testid="contact-email-link"
-              className="mt-10 inline-block font-mono text-xs tracking-[0.25em] text-slate-300 underline-offset-4 hover:text-white hover:underline"
-            >
-              HELLO@VELARYON.COM
-            </a>
-          </Reveal>
+          <div className="mt-10 grid gap-10 lg:grid-cols-12">
+            <Reveal delay={0.08} className="lg:col-span-8">
+              <h1 className="display-1 text-chalk">Start a conversation.</h1>
+            </Reveal>
+            <Reveal delay={0.16} className="flex flex-col justify-end lg:col-span-4">
+              <p className="max-w-md text-base leading-relaxed text-fog md:text-lg">
+                Velaryon is engaging early with investors, strategic partners and technology
+                collaborators. Tell us who you are and what you're exploring.
+              </p>
+            </Reveal>
+          </div>
         </div>
+      </section>
 
-        <Reveal delay={0.15}>
+      <section className="wrap grid gap-16 py-20 lg:grid-cols-12 md:py-28">
+        <Reveal className="lg:col-span-4">
+          <Meta
+            className="grid-cols-1 gap-y-8"
+            items={[
+              { k: "Enquiries", v: "hello@velaryon.com" },
+              { k: "Location", v: "Australia" },
+              { k: "Response", v: "Within a few working days" },
+              { k: "Status", v: "Concept stage", signal: true },
+            ]}
+          />
+          <a
+            href="mailto:hello@velaryon.com"
+            data-testid="contact-email-link"
+            className="label mt-12 inline-block text-chalk underline decoration-line underline-offset-8 transition-colors hover:text-signal hover:decoration-signal"
+          >
+            Email us directly
+          </a>
+        </Reveal>
+
+        <div className="lg:col-span-7 lg:col-start-6">
           {status === "sent" ? (
             <motion.div
               data-testid="contact-success"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="flex h-full flex-col justify-center border border-white/15 p-10"
+              transition={{ duration: 0.6, ease: EASE }}
             >
-              <p className="font-mono text-xs uppercase tracking-[0.4em] text-white">Message received</p>
-              <p className="mt-6 max-w-xs text-sm leading-relaxed text-mist">
-                Thank you for reaching out. The Velaryon team will be in touch.
-              </p>
+              <Frame className="p-10 md:p-14">
+                <div className="flex items-center gap-3">
+                  <span aria-hidden className="h-1.5 w-1.5 bg-signal" />
+                  <p className="label text-chalk">Message received</p>
+                </div>
+                <p className="mt-6 max-w-md text-base leading-relaxed text-fog">
+                  Thank you for reaching out. The Velaryon team will be in touch.
+                </p>
+              </Frame>
             </motion.div>
           ) : (
-            <form onSubmit={submit} data-testid="contact-form" className="space-y-8">
-              <div>
-                <label htmlFor="contact-name" className="font-mono text-[10px] uppercase tracking-[0.3em] text-mist">
-                  Name *
-                </label>
-                <input id="contact-name" data-testid="contact-name-input" required value={form.name} onChange={set("name")} className={field} placeholder="Your name" />
-              </div>
-              <div>
-                <label htmlFor="contact-email" className="font-mono text-[10px] uppercase tracking-[0.3em] text-mist">
-                  Email *
-                </label>
-                <input id="contact-email" data-testid="contact-email-input" required type="email" value={form.email} onChange={set("email")} className={field} placeholder="you@company.com" />
-              </div>
-              <div>
-                <label htmlFor="contact-org" className="font-mono text-[10px] uppercase tracking-[0.3em] text-mist">
-                  Organization
-                </label>
-                <input id="contact-org" data-testid="contact-org-input" value={form.organization} onChange={set("organization")} className={field} placeholder="Company / fund / institution" />
-              </div>
-              <div>
-                <label htmlFor="contact-interest" className="font-mono text-[10px] uppercase tracking-[0.3em] text-mist">
-                  Interest
-                </label>
-                <select
-                  id="contact-interest"
-                  data-testid="contact-interest-select"
-                  value={form.interest}
-                  onChange={set("interest")}
-                  className={`${field} cursor-pointer bg-abyss`}
-                >
-                  {INTERESTS.map((i) => (
-                    <option key={i} value={i} className="bg-abyss">
-                      {i}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label htmlFor="contact-message" className="font-mono text-[10px] uppercase tracking-[0.3em] text-mist">
-                  Message *
-                </label>
-                <textarea id="contact-message" data-testid="contact-message-input" required rows={4} value={form.message} onChange={set("message")} className={`${field} resize-none`} placeholder="What would you like to explore?" />
-              </div>
-              {status === "error" && (
-                <p data-testid="contact-error" className="font-mono text-xs tracking-[0.2em] text-red-400">
-                  SOMETHING WENT WRONG — PLEASE TRY AGAIN OR EMAIL US DIRECTLY
-                </p>
-              )}
-              <button
-                type="submit"
-                data-testid="contact-form-submit"
-                disabled={status === "sending"}
-                className="group inline-flex items-center gap-3 border border-white/40 px-8 py-4 font-mono text-xs uppercase tracking-[0.3em] text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-abyss disabled:opacity-50"
-              >
-                {status === "sending" ? "Sending…" : "Send Message"}
-                <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-              </button>
-            </form>
+            <Reveal delay={0.1}>
+              <form onSubmit={submit} data-testid="contact-form" className="grid gap-6 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="contact-name" className={lbl}>Name *</label>
+                  <input id="contact-name" data-testid="contact-name-input" required value={form.name} onChange={set("name")} className={field} placeholder="Your name" />
+                </div>
+                <div>
+                  <label htmlFor="contact-email" className={lbl}>Email *</label>
+                  <input id="contact-email" data-testid="contact-email-input" required type="email" value={form.email} onChange={set("email")} className={field} placeholder="you@company.com" />
+                </div>
+                <div>
+                  <label htmlFor="contact-org" className={lbl}>Organisation</label>
+                  <input id="contact-org" data-testid="contact-org-input" value={form.organization} onChange={set("organization")} className={field} placeholder="Company / fund / institution" />
+                </div>
+                <div>
+                  <label htmlFor="contact-interest" className={lbl}>Interest</label>
+                  <select id="contact-interest" data-testid="contact-interest-select" value={form.interest} onChange={set("interest")} className={`${field} cursor-pointer appearance-none`}>
+                    {INTERESTS.map((i) => (
+                      <option key={i} value={i} className="bg-carbon">{i}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="sm:col-span-2">
+                  <label htmlFor="contact-message" className={lbl}>Message *</label>
+                  <textarea id="contact-message" data-testid="contact-message-input" required rows={5} value={form.message} onChange={set("message")} className={`${field} resize-none`} placeholder="What would you like to explore?" />
+                </div>
+                {status === "error" && (
+                  <p data-testid="contact-error" className="label-xs text-signal sm:col-span-2">
+                    Something went wrong — please try again or email us directly
+                  </p>
+                )}
+                <div className="sm:col-span-2">
+                  <button
+                    type="submit"
+                    data-testid="contact-form-submit"
+                    disabled={status === "sending"}
+                    className="label inline-flex items-center gap-3 bg-chalk px-6 py-4 text-ink transition-colors duration-300 hover:bg-white disabled:opacity-50"
+                  >
+                    {status === "sending" ? "Sending…" : "Send message"}
+                    <span aria-hidden>→</span>
+                  </button>
+                </div>
+              </form>
+            </Reveal>
           )}
-        </Reveal>
-      </div>
+        </div>
+      </section>
     </div>
   );
 }

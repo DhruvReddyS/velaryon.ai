@@ -1,80 +1,83 @@
-import ChapterLabel from "@/components/ChapterLabel";
-import ArrowLink from "@/components/ArrowLink";
-import { Reveal } from "@/components/Reveal";
+import { Eyebrow, Frame, PageHero, Reveal, Rule } from "@/components/Primitives";
+import CTA from "@/components/home/CTA";
 
-const POINTS = [
-  {
-    n: "01",
-    title: "PERSISTENCE",
-    copy: "Oceans cover most of the planet, yet crewed presence is expensive, limited and often risky. Autonomy is being developed to make presence continuous rather than occasional.",
-  },
-  {
-    n: "02",
-    title: "SCALE",
-    copy: "One crewed vessel can only be in one place. Distributed autonomous platforms are intended to change the mathematics of coverage entirely.",
-  },
-  {
-    n: "03",
-    title: "SAFETY",
-    copy: "Removing crews from routine, remote or hazardous operations is designed to keep people out of harm's way while keeping watch where it matters.",
-  },
+const PROBLEMS = [
+  { n: "01", t: "Vast", c: "Australia alone is responsible for one of the largest maritime jurisdictions in the world. Crewed vessels cannot be everywhere at once." },
+  { n: "02", t: "Costly", c: "Every hour a crewed vessel spends at sea is an hour of people, fuel, food and risk. Persistent presence has always been expensive." },
+  { n: "03", t: "Repetitive", c: "Much of the work at sea is patrol, survey and inspection — long, repetitive tasks that are exactly what autonomy is good at." },
+];
+
+const BELIEFS = [
+  "Autonomy should extend people, not replace their judgement.",
+  "A platform should be shaped around its mission, not the other way around.",
+  "Software is the product. The vessel is how it goes to sea.",
+  "Say what you have built. Not what you hope to build.",
 ];
 
 export default function MissionPage() {
   return (
-    <div data-testid="mission-page" className="bg-abyss">
-      <section className="relative flex min-h-[80svh] items-end overflow-hidden">
-        <img
-          src="/assets/vessel-sunset.webp"
-          alt="Velaryon vessel concept small against a vast ocean horizon"
-          className="absolute inset-0 h-full w-full object-cover opacity-60"
-        />
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/40 to-abyss/60" />
-        <div className="relative mx-auto w-full max-w-7xl px-5 pb-24 md:px-10">
-          <Reveal>
-            <ChapterLabel index="01" title="Mission" />
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h1 className="mt-8 font-display text-5xl font-medium leading-[0.98] tracking-tight text-white sm:text-7xl">
-              THE OCEAN IS VAST.
-              <br />
-              PRESENCE SHOULDN'T BE
-              <br />
-              LIMITED BY PEOPLE.
-            </h1>
-          </Reveal>
+    <div data-testid="mission-page" className="bg-ink">
+      <PageHero
+        index="01"
+        title="Mission"
+        testId="mission-hero"
+        heading={
+          <>
+            Presence at sea shouldn't be limited by the people you can put on it.
+          </>
+        }
+        lead="Velaryon's mission is to make maritime presence persistent, precise and scalable through autonomy."
+      />
+
+      <section className="wrap py-24 md:py-32">
+        <Reveal>
+          <Eyebrow index="01.1" title="The problem" />
+        </Reveal>
+        <div className="mt-12 grid divide-y divide-line-soft md:grid-cols-3 md:divide-x md:divide-y-0">
+          {PROBLEMS.map((p, i) => (
+            <Reveal key={p.n} delay={0.08 * i}>
+              <div data-testid={`problem-${p.t.toLowerCase()}`} className={`py-8 ${i > 0 ? "md:pl-10" : ""} ${i < PROBLEMS.length - 1 ? "md:pr-10" : ""}`}>
+                <p className="label-xs text-fog">{p.n}</p>
+                <h2 className="mt-8 text-3xl font-medium tracking-tight text-chalk">{p.t}</h2>
+                <p className="mt-4 text-sm leading-relaxed text-fog">{p.c}</p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
-      <section className="py-24 md:py-36">
-        <div className="mx-auto max-w-7xl px-5 md:px-10">
-          <Reveal>
-            <p className="max-w-2xl text-lg leading-relaxed text-slate-300">
-              Maritime autonomy matters because the operating environment outgrows the crewed
-              model. Velaryon exists to develop the platforms and the intelligence that close that
-              gap — deliberately, and from first principles.
-            </p>
-          </Reveal>
+      <section className="relative isolate overflow-hidden">
+        <Frame className="mx-6 aspect-[21/9] overflow-hidden bg-carbon md:mx-10 xl:mx-16">
+          <img
+            src="/assets/vessel-sunset.webp"
+            alt="Velaryon autonomous surface vessel concept underway"
+            loading="lazy"
+            className="h-full w-full object-cover"
+            style={{ objectPosition: "50% 60%" }}
+          />
+        </Frame>
+      </section>
 
-          <div className="mt-20 grid gap-px bg-white/[0.07] md:grid-cols-3">
-            {POINTS.map((p, i) => (
-              <Reveal key={p.n} delay={0.1 * i} className="bg-abyss">
-                <div data-testid={`mission-point-${p.title.toLowerCase()}`} className="p-8 md:p-10">
-                  <p className="font-mono text-[10px] tracking-[0.3em] text-mist/60">{p.n}</p>
-                  <h2 className="mt-6 font-mono text-xs uppercase tracking-[0.32em] text-white">{p.title}</h2>
-                  <p className="mt-5 text-sm leading-relaxed text-mist">{p.copy}</p>
+      <section className="wrap py-24 md:py-32">
+        <div className="grid gap-12 lg:grid-cols-12">
+          <Reveal className="lg:col-span-4">
+            <Eyebrow index="01.2" title="What we believe" />
+          </Reveal>
+          <div className="lg:col-span-8">
+            <Rule />
+            {BELIEFS.map((b, i) => (
+              <Reveal key={b} delay={0.06 * i}>
+                <div data-testid={`belief-${i}`} className="grid grid-cols-[48px_1fr] gap-4 border-b border-line py-8">
+                  <span className="label-xs pt-2 text-fog">{String(i + 1).padStart(2, "0")}</span>
+                  <p className="display-3 text-chalk">{b}</p>
                 </div>
               </Reveal>
             ))}
           </div>
-
-          <div className="mt-20">
-            <ArrowLink to="/platform" testId="mission-to-platform-link">
-              See What We're Building
-            </ArrowLink>
-          </div>
         </div>
       </section>
+
+      <CTA light />
     </div>
   );
 }

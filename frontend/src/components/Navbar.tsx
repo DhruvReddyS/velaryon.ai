@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useLoaded } from "@/lib/loader";
+import { EASE } from "@/components/Primitives";
 
 const LINKS = [
-  { to: "/mission", label: "MISSION" },
-  { to: "/platform", label: "PLATFORMS" },
-  { to: "/how-it-works", label: "AUTONOMY" },
-  { to: "/technology", label: "TECHNOLOGY" },
-  { to: "/company", label: "COMPANY" },
+  { to: "/mission", label: "Mission" },
+  { to: "/platforms", label: "Platforms" },
+  { to: "/how-it-works", label: "Autonomy" },
+  { to: "/technology", label: "Technology" },
+  { to: "/company", label: "Company" },
 ];
 
 export default function Navbar() {
@@ -19,7 +20,7 @@ export default function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 48);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -27,74 +28,57 @@ export default function Navbar() {
 
   useEffect(() => setOpen(false), [location.pathname]);
 
+  const solid = scrolled || open;
+
   return (
     <>
       <header
         data-testid="navbar"
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ${
-          scrolled
-            ? "border-b border-white/[0.08] bg-abyss/70 backdrop-blur-md"
-            : "border-b border-transparent bg-transparent"
+        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,opacity] duration-500 ${
+          solid ? "border-b border-line-soft bg-ink/85 backdrop-blur-md" : "border-b border-transparent"
         } ${ready ? "opacity-100" : "opacity-0"}`}
-        style={{ transitionProperty: "opacity, background-color, border-color" }}
       >
-        <div className="flex h-16 items-center justify-between px-5 md:px-10">
-          <Link
-            to="/"
-            data-testid="nav-logo"
-            aria-label="Velaryon home"
-            className="flex items-center gap-3"
-          >
+        <div className="wrap flex h-[72px] items-center justify-between">
+          <Link to="/" data-testid="nav-logo" aria-label="Velaryon home" className="flex items-center gap-3">
             <img src="/assets/logo-mark-light.png" alt="" className="h-7 w-auto" />
-            <img src="/assets/logo-wordmark-light.png" alt="VELARYON" className="h-3 w-auto" />
+            <img src="/assets/logo-wordmark-light.png" alt="VELARYON" className="hidden h-[11px] w-auto sm:block" />
           </Link>
 
-          <nav aria-label="Primary" className="hidden items-center gap-9 lg:flex">
+          <nav aria-label="Primary" className="hidden items-center gap-10 lg:flex">
             {LINKS.map((l) => {
-              const active = location.pathname === l.to;
+              const active = location.pathname.startsWith(l.to);
               return (
                 <Link
                   key={l.to}
                   to={l.to}
                   data-testid={`nav-link-${l.label.toLowerCase()}`}
-                  className={`group relative font-mono text-[11px] tracking-[0.28em] transition-colors duration-300 ${
-                    active ? "text-white" : "text-mist hover:text-white"
-                  }`}
+                  className={`label relative py-2 transition-colors duration-300 ${active ? "text-chalk" : "text-fog hover:text-chalk"}`}
                 >
-                  {active && (
-                    <span
-                      aria-hidden
-                      data-testid={`nav-indicator-${l.label.toLowerCase()}`}
-                      className="absolute -top-2.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-slate-300"
-                    />
-                  )}
                   {l.label}
-                  <span
-                    aria-hidden
-                    className={`absolute -bottom-1.5 left-0 h-px w-full origin-left bg-white transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                      active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                    }`}
-                  />
+                  {active && <span aria-hidden className="absolute -bottom-0.5 left-0 h-px w-full bg-signal" />}
                 </Link>
               );
             })}
           </nav>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-8">
+            <div data-testid="nav-status" className="label-xs hidden items-center gap-2 text-fog xl:flex">
+              <span aria-hidden className="signal-dot h-1.5 w-1.5 bg-signal" />
+              Concept stage · Australia
+            </div>
             <Link
               to="/contact"
               data-testid="nav-contact-link"
-              className="group hidden items-center gap-2 font-mono text-[11px] tracking-[0.28em] text-mist transition-colors duration-300 hover:text-white lg:inline-flex"
+              className="label hidden border border-chalk/25 px-5 py-3 text-chalk transition-colors duration-300 hover:border-chalk hover:bg-chalk hover:text-ink lg:inline-flex"
             >
-              CONTACT
-              <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
+              Contact
             </Link>
             <button
               data-testid="mobile-menu-button"
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
-              className="text-slate-200 lg:hidden"
+              className="text-chalk lg:hidden"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -109,30 +93,32 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-40 flex flex-col justify-center bg-abyss/95 px-8 backdrop-blur-xl lg:hidden"
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 flex flex-col bg-ink px-6 pt-28 pb-10 lg:hidden"
           >
-            <nav aria-label="Mobile" className="flex flex-col gap-2">
-              {[{ to: "/", label: "HOME" }, ...LINKS, { to: "/contact", label: "CONTACT" }].map((l, i) => (
+            <nav aria-label="Mobile" className="flex flex-col divide-y divide-line-soft border-y border-line-soft">
+              {[{ to: "/", label: "Home" }, ...LINKS, { to: "/contact", label: "Contact" }].map((l, i) => (
                 <motion.div
                   key={l.to}
-                  initial={{ opacity: 0, y: 24 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.08 * i, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ delay: 0.05 * i, duration: 0.5, ease: EASE }}
                 >
                   <Link
                     to={l.to}
                     data-testid={`mobile-link-${l.label.toLowerCase()}`}
-                    className="block py-3 font-display text-4xl font-light tracking-tight text-slate-100"
+                    className="flex items-center justify-between py-5 text-2xl font-medium tracking-tight text-chalk"
                   >
                     {l.label}
+                    <span className="label-xs text-fog">{String(i).padStart(2, "0")}</span>
                   </Link>
                 </motion.div>
               ))}
             </nav>
-            <p className="mt-12 font-mono text-[10px] tracking-[0.3em] text-mist">
-              AUTONOMOUS MARITIME SYSTEMS / AUSTRALIA
-            </p>
+            <div className="label-xs mt-auto flex items-center gap-2 text-fog">
+              <span aria-hidden className="h-1.5 w-1.5 bg-signal" />
+              Autonomous maritime systems · Concept stage · Australia
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
