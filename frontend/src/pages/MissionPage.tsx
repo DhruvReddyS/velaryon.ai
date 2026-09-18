@@ -36,11 +36,11 @@ export default function MissionPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <h1 className="mt-8 font-display text-5xl font-medium leading-[0.98] tracking-tight text-white sm:text-7xl">
-              The ocean is vast.
+              THE OCEAN IS VAST.
               <br />
-              Presence shouldn't be
+              PRESENCE SHOULDN'T BE
               <br />
-              limited by people.
+              LIMITED BY PEOPLE.
             </h1>
           </Reveal>
         </div>

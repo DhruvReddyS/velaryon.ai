@@ -9,6 +9,7 @@ const EXPLORE = [
   { to: "/how-it-works", label: "AUTONOMY" },
   { to: "/technology", label: "TECHNOLOGY" },
   { to: "/company", label: "COMPANY" },
+  { to: "/newsroom", label: "NEWSROOM" },
 ];
 
 export default function Footer() {

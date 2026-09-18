@@ -80,14 +80,23 @@ export default function VelaryonLoader({ onDone }: { onDone: () => void }) {
       >
         <div className="flex items-center gap-7">
           <div className="relative" style={{ perspective: 900 }}>
-            <div className="loader-bob">
+            <div className="loader-bob flex flex-col items-center">
               <motion.img
-                src="/assets/logo-mark-light.png"
+                src="/assets/logo-bow-light.png"
                 alt="Velaryon mark"
-                className="h-[150px] w-auto"
+                className="w-[264px]"
                 initial={{ opacity: 0, scale: 0.1, y: 26, rotateX: 14, filter: "blur(9px)" }}
                 animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0, filter: "blur(0px)" }}
                 transition={{ delay: 0.35, duration: 1.6, ease: EASE_APPROACH }}
+              />
+              <motion.img
+                src="/assets/logo-waves-light.png"
+                alt=""
+                aria-hidden
+                className="-mt-[33px] w-[264px]"
+                initial={{ opacity: 0, scaleX: 0.4, y: 8 }}
+                animate={{ opacity: 1, scaleX: 1, y: 0 }}
+                transition={{ delay: 1.5, duration: 0.95, ease: EASE_APPROACH }}
               />
             </div>
 

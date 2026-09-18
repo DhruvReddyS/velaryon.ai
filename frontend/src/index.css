@@ -145,8 +145,21 @@
   color: transparent;
 }
 
+@keyframes route-wipe {
+  from { transform: scaleY(1); }
+  to { transform: scaleY(0); }
+}
+
+.route-wipe {
+  animation: route-wipe 0.7s cubic-bezier(0.65, 0, 0.15, 1) forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee, .loader-bob {
     animation: none;
+  }
+  .route-wipe {
+    animation: none;
+    opacity: 0;
   }
 }

@@ -42,10 +42,19 @@ Build a complete, production-quality, ultra-modern website for VELARYON, an earl
 - Navbar: PLATFORMS/AUTONOMY links, active chapter dot indicator
 - Platform page: family intro + three vessel experiences reused + layers viz + honest empty spec area
 
+### V3 — Cinematic vessel films + wave morph (2026-09-18)
+- VesselCinema: shared scroll-scrubbed cinematic component (sticky 380vh desktop / 200vh mobile stage, spring-smoothed progress, letterbox open, chapter choreography: kicker → oversized masked NAME → tagline → restrained 1px engineering annotations → mid copy → "ENGINEERED FOR AN AUTONOMOUS OCEAN." closing → horizon line + desaturation grade into next section). VIPER keeps slice/light-line reveal identity (image-driven), HUNTER keeps perception-field identity, HAVOC is scroll-scrubbed VIDEO
+- HAVOC video: user-supplied 5s clip re-encoded H.264 dense keyframes (-g 4) for smooth scrubbing — havoc-desktop.mp4 (1440w crf24, 3MB) + havoc-mobile.mp4 (854w, 1MB) + poster webp; lazy source attach 120% before viewport; rAF interpolation of currentTime toward scroll target (never plays freely); poster-first, no spinner, no controls; reduced-motion falls back to poster + static text
+- Video-ready for VIPER/HUNTER: add video paths to src/lib/platforms.ts cinema.video and the same scrub experience activates
+- True wave morph: logo split into logo-bow-light/logo-waves-light (overlapping alpha crops, exact original pixels) — loader now approaches as bow, organic SVG wake settles, then the EXACT wave geometry expands into place (scaleX 0.4→1), perfectly resolving
+- Newsroom page (/newsroom): editorial empty state "SIGNALS FROM VELARYON." + footer link
+- Global: film grain overlay, route-wipe curtain transition between pages, uppercase mission page headline, text-shadow scrim on cinema typography
+
 ## Verified
 - Backend: POST/GET /api/contact via curl (V1)
-- Screenshots: loader, hero, viper/havoc/hunter mid-sequences, autonomy ACT scene, technology lab, development route + marker, footer mark + wake, mobile hero/viper/footer
-- Known limits: hero video not wired (no asset); team profiles placeholder
+- Screenshots: loader approach/formation/exit, hero (desktop + mobile), HAVOC scrub at 10/32/62/94% (video frames advance, chapters choreograph, closing grade), VIPER slice reveal, HUNTER perception field, development route, footer mark + wake, newsroom, technology lab, how-it-works scenes
+- Lint: 0 errors
+- Known limits: VIPER/HUNTER videos pending (user sending); team profiles placeholder
 
 ## Backlog / Next Tasks
 - P0: Replace placeholder team profiles/photos with real founders (user to supply)
