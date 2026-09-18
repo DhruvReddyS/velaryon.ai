@@ -4,7 +4,7 @@ import ArrowLink from "@/components/ArrowLink";
 import { Reveal } from "@/components/Reveal";
 
 const BLOCKS = [
-  { t: "WHO WE ARE", c: "An early-stage maritime technology company developing autonomous surface platforms and the software that operates them." },
+  { t: "WHO WE ARE", c: "An Australian early-stage maritime technology company developing autonomous surface platforms and the software that operates them." },
   { t: "MISSION", c: "To make presence at sea persistent, precise and scalable through autonomy." },
   { t: "VISION", c: "An ocean where autonomous platforms handle the routine, the remote and the hazardous — and people direct the mission." },
   { t: "WHY NOW", c: "Autonomy, sensing and compute have matured in other domains. We believe the maritime domain is next — and we intend to be part of proving it." },
@@ -37,14 +37,19 @@ export default function CompanyPage() {
       <section className="flex min-h-[60svh] items-end">
         <div className="mx-auto w-full max-w-7xl px-5 pb-20 pt-40 md:px-10">
           <Reveal>
-            <ChapterLabel index="07" title="Velaryon" light />
+            <ChapterLabel index="07" title="Company" light />
           </Reveal>
           <Reveal delay={0.1}>
             <h1 className="mt-8 font-display text-5xl font-medium leading-[0.98] tracking-tight sm:text-7xl">
-              We're building for
+              BUILDING FOR
               <br />
-              an autonomous ocean.
+              AN AUTONOMOUS OCEAN.
             </h1>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <p className="mt-8 font-mono text-[10px] uppercase tracking-[0.35em] text-slate-500">
+              VELARYON / AUSTRALIA
+            </p>
           </Reveal>
         </div>
       </section>
@@ -74,9 +79,7 @@ export default function CompanyPage() {
               <Reveal key={m.name}>
                 <article
                   data-testid={`team-member-${m.name.toLowerCase().replace(/\s+/g, "-")}`}
-                  className={`grid items-center gap-10 md:grid-cols-12 ${
-                    i % 2 === 1 ? "" : ""
-                  }`}
+                  className="grid items-center gap-10 md:grid-cols-12"
                 >
                   <div className={`md:col-span-6 ${i % 2 === 1 ? "md:order-2" : ""}`}>
                     <div className="overflow-hidden">

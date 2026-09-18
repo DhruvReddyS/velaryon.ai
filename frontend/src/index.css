@@ -115,6 +115,13 @@
   }
 }
 
+@media (pointer: fine) {
+  .custom-cursor,
+  .custom-cursor * {
+    cursor: none !important;
+  }
+}
+
 @keyframes marquee-x {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
@@ -130,7 +137,7 @@
 }
 
 @utility loader-bob {
-  animation: loader-bob 2.6s ease-in-out 1.5s infinite;
+  animation: loader-bob 2.6s ease-in-out 1.6s infinite;
 }
 
 @utility text-outline-dark {

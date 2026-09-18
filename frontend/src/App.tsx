@@ -5,6 +5,8 @@ import { useReducedMotion } from "motion/react";
 import { Toaster } from "@/components/ui/sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Cursor from "@/components/Cursor";
+import RouteProgress from "@/components/RouteProgress";
 import VelaryonLoader from "@/components/VelaryonLoader";
 import { LoaderContext } from "@/lib/loader";
 import Home from "@/pages/Home";
@@ -59,6 +61,8 @@ export default function App() {
   return (
     <LoaderContext.Provider value={ready}>
       {!ready && <VelaryonLoader onDone={() => setReady(true)} />}
+      <Cursor />
+      <RouteProgress />
       <Navbar />
       <main>
         <Routes>

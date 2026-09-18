@@ -1,12 +1,16 @@
 import Hero from "@/components/home/Hero";
 import MissionScale from "@/components/home/MissionScale";
 import Marquee from "@/components/Marquee";
-import PlatformReveal from "@/components/home/PlatformReveal";
-import AutonomyTeaser from "@/components/home/AutonomyTeaser";
-import TechnologyPillars from "@/components/home/TechnologyPillars";
+import { PlatformFamilyIntro, PlatformFamilyFinale } from "@/components/home/PlatformFamily";
+import ViperSection from "@/components/home/ViperSection";
+import HavocSection from "@/components/home/HavocSection";
+import HunterSection from "@/components/home/HunterSection";
+import AutonomyLoop from "@/components/home/AutonomyLoop";
+import HumanMachine from "@/components/home/HumanMachine";
+import TechnologyLab from "@/components/home/TechnologyLab";
 import MissionsSection from "@/components/home/MissionsSection";
 import Philosophy from "@/components/home/Philosophy";
-import Roadmap from "@/components/home/Roadmap";
+import Development from "@/components/home/Development";
 import CompanyTeaser from "@/components/home/CompanyTeaser";
 import FinalCTA from "@/components/home/FinalCTA";
 
@@ -16,12 +20,17 @@ export default function Home() {
       <Hero />
       <MissionScale />
       <Marquee />
-      <PlatformReveal />
-      <AutonomyTeaser />
-      <TechnologyPillars />
+      <PlatformFamilyIntro />
+      <ViperSection />
+      <HavocSection />
+      <HunterSection />
+      <PlatformFamilyFinale />
+      <AutonomyLoop />
+      <HumanMachine />
+      <TechnologyLab />
       <MissionsSection />
       <Philosophy />
-      <Roadmap />
+      <Development />
       <CompanyTeaser />
       <FinalCTA />
     </div>

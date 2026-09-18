@@ -20,16 +20,32 @@ Build a complete, production-quality, ultra-modern website for VELARYON, an earl
 - No invented specs, customers, deployments, or achievements — "designed to / concept / being developed for" language
 - data-testid on all interactive elements
 
-## Implemented (2026-09-17)
-- Signature Velaryon loader: bow mark approaches from horizon, wake ripples propagate, wordmark clip-reveal, then the lockup physically scales/translates into the top-left navbar position while the hero reveals (reduced-motion fallback included)
-- Lenis smooth momentum scrolling + framer-motion scroll choreography throughout
-- Home: cinematic hero (masked line reveal, scroll parallax/darkening), 01 Mission ocean scale-zoom sticky section, editorial marquee, 02 Platform bright reveal with technical annotations, 03 Autonomy teaser (PERCEIVE/UNDERSTAND/DECIDE/ACT sticky sequence), 04 Technology asymmetric pillars with animated SVGs, 05 Missions interactive tabs with crossfading imagery, typographic engineering philosophy sequence, 06 Forward roadmap with animated progress line (CONCEPT marked current), 07 company teaser, cinematic final CTA, minimal footer
-- Pages: /mission, /platform (annotated profile, philosophy, scroll-driven conceptual layer visualization, honest empty spec area), /technology (4 pillars detail), /how-it-works (7-scene sticky scrollytelling: MISSION→DEPLOY→PERCEIVE→UNDERSTAND→DECIDE→ACT→CONNECT→MISSION COMPLETE), /company (editorial blocks + 3 placeholder team profiles), /contact (form → MongoDB), /privacy, /terms (placeholders)
-- Backend: POST/GET /api/contact (enquiries stored in MongoDB)
+## Implemented
+### V1 (2026-09-17)
+- Signature Velaryon loader → navbar transition, Lenis smooth scrolling, cinematic hero, mission scale section, platform reveal, autonomy teaser, technology pillars, missions, philosophy, roadmap, company teaser, final CTA, footer; pages: /mission /platform /technology /how-it-works /company /contact /privacy /terms; backend POST/GET /api/contact.
+
+### V2 Transformation (2026-09-18)
+- Logo visibility system: processed exact logo geometry into high-contrast off-white variants (logo-mark-light / logo-wordmark-light) for dark surfaces; original dark version retained for light surfaces
+- Loader rework: horizon + haze, perspective approach with pitch/focus/bob, center-out bow wake (inner/outer/ripple with turbulence displacement), wordmark tracking reveal, physical handoff into navbar
+- Hero: living ocean (26s camera push, drifting mist, pointer-based depth separation between image and typography), video-ready architecture (HERO_VIDEO constant, poster-first crossfade), VELARYON / AUSTRALIA + STATUS / DEVELOPMENT labels
+- Mission: extended ocean pullback, conceptual nodes, faint Australian coastline outline, new captions (THE OCEAN IS VAST / AUTONOMY CHANGES THE SCALE)
+- Platform family: central registry src/lib/platforms.ts (V/01 VIPER, V/02 HAVOC, V/03 HUNTER — working names). VIPER = silhouette + sweeping light line + clip reveal + technical edge band; HAVOC = 5-strip mechanical layered assembly with architectural labels; HUNTER = perception field overlay (field lines, sensing cone, track boxes, OBSERVE/INTERPRET/CONNECT); finale strip of all three + CTA
+- Autonomy loop (home): one scene transforming through PERCEIVE → UNDERSTAND → DECIDE → ACT → CONNECT
+- Human + Machine typography moment with remote-operations link visual
+- Technology lab (light): scroll-driven photographic → edge → silhouette → system-relationships morph + hover/tap system highlights
+- Missions: 5 conceptual categories with environment-changing imagery
+- Philosophy: vessel silhouette passes behind typography → outline → three platform silhouettes → AUTONOMOUS × SOFTWARE-DEFINED × MISSION-ADAPTABLE
+- Development: maritime route visualization, waypoints from path measurement, vessel marker travels with scroll, CONCEPT marked current
+- Final CTA: vessel recedes toward horizon on scroll
+- Footer: final scene — massive submerged mark (~64vw) with hover water-refraction (feTurbulence displacement, desktop), floating minimal nav, one-shot wake easter egg at absolute bottom
+- Custom cursor (dot + ring, context labels via data-cursor, touch-disabled), route-style scroll progress indicator (home only)
+- Navbar: PLATFORMS/AUTONOMY links, active chapter dot indicator
+- Platform page: family intro + three vessel experiences reused + layers viz + honest empty spec area
 
 ## Verified
-- POST /api/contact + GET list via curl; contact form e2e submit shows success panel
-- Screenshots: loader, hero, mission scale, platform annotations, autonomy teaser, how-it-works scenes 1/3/end, company team, final CTA, platform layers
+- Backend: POST/GET /api/contact via curl (V1)
+- Screenshots: loader, hero, viper/havoc/hunter mid-sequences, autonomy ACT scene, technology lab, development route + marker, footer mark + wake, mobile hero/viper/footer
+- Known limits: hero video not wired (no asset); team profiles placeholder
 
 ## Backlog / Next Tasks
 - P0: Replace placeholder team profiles/photos with real founders (user to supply)

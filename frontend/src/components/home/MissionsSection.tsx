@@ -8,14 +8,21 @@ const MISSIONS = [
     id: "awareness",
     title: "MARITIME AWARENESS",
     copy: "Concept mission — a persistent autonomous presence intended to observe and report across wide ocean areas.",
+    img: "/assets/hunter.webp",
+    position: "center",
+  },
+  {
+    id: "presence",
+    title: "PERSISTENT PRESENCE",
+    copy: "Concept mission — being designed to hold station and remain on task far longer than crewed patrol cycles allow.",
     img: "/assets/vessel-dusk.webp",
     position: "center",
   },
   {
     id: "infrastructure",
-    title: "INFRASTRUCTURE MONITORING",
-    copy: "Concept mission — being designed to inspect and watch over offshore assets without continuous crewed patrols.",
-    img: "/assets/vessel-hero.webp",
+    title: "INFRASTRUCTURE OPERATIONS",
+    copy: "Concept mission — intended to inspect and watch over offshore assets without continuous crewed support.",
+    img: "/assets/havoc.webp",
     position: "center",
   },
   {
@@ -29,8 +36,8 @@ const MISSIONS = [
     id: "security",
     title: "MARITIME SECURITY",
     copy: "Concept mission — envisioned to extend awareness and response options for partners operating at sea.",
-    img: "/assets/vessel-dusk.webp",
-    position: "center 30%",
+    img: "/assets/viper.webp",
+    position: "center",
   },
 ];
 
@@ -39,14 +46,16 @@ export default function MissionsSection() {
   const current = MISSIONS[active];
 
   return (
-    <section data-testid="missions-section" className="bg-navy py-28 md:py-40">
+    <section id="missions" data-testid="missions-section" className="bg-navy py-28 md:py-40">
       <div className="mx-auto max-w-7xl px-5 md:px-10">
         <Reveal>
           <ChapterLabel index="05" title="Missions" />
         </Reveal>
         <Reveal delay={0.1}>
-          <h2 className="mt-10 font-display text-4xl font-medium leading-[1.02] tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Built for the mission.
+          <h2 className="mt-10 font-display text-4xl font-medium leading-[1.0] tracking-tight text-white sm:text-6xl">
+            BUILT FOR
+            <br />
+            THE MARITIME DOMAIN.
           </h2>
         </Reveal>
 
@@ -60,7 +69,7 @@ export default function MissionsSection() {
                 data-testid={`mission-tab-${m.id}`}
                 onClick={() => setActive(i)}
                 onMouseEnter={() => setActive(i)}
-                className={`group border-b border-white/[0.08] py-7 text-left transition-colors duration-500 ${
+                className={`group border-b border-white/[0.08] py-6 text-left transition-colors duration-500 ${
                   active === i ? "text-white" : "text-slate-500 hover:text-slate-300"
                 }`}
               >
@@ -68,7 +77,7 @@ export default function MissionsSection() {
                   <span className="font-mono text-[10px] tracking-[0.3em] text-mist/60">
                     0{i + 1}
                   </span>
-                  <span className="font-display text-2xl font-medium tracking-tight sm:text-3xl">
+                  <span className="font-display text-xl font-medium tracking-tight sm:text-2xl lg:text-3xl">
                     {m.title}
                   </span>
                 </span>
@@ -92,7 +101,10 @@ export default function MissionsSection() {
             </p>
           </div>
 
-          <div className="relative aspect-[4/3] overflow-hidden bg-abyss lg:aspect-auto lg:min-h-[480px]">
+          <div
+            className="relative aspect-[4/3] overflow-hidden bg-abyss lg:aspect-auto lg:min-h-[520px]"
+            data-cursor="VIEW"
+          >
             <AnimatePresence mode="popLayout">
               <motion.img
                 key={current.id}

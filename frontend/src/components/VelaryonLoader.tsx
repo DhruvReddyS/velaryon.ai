@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "motion/react";
 const LOCKUP_W = 614;
 const LOCKUP_H = 150;
 const NAV_MARK_H = 28;
-const EASE_OUT = [0.16, 1, 0.3, 1] as const;
+const EASE_APPROACH = [0.22, 0.7, 0.2, 1] as const;
 const EASE_INOUT = [0.65, 0, 0.15, 1] as const;
 
 export default function VelaryonLoader({ onDone }: { onDone: () => void }) {
@@ -16,7 +16,7 @@ export default function VelaryonLoader({ onDone }: { onDone: () => void }) {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const fit = Math.min(1, (vw - 48) / LOCKUP_W);
-    const endScale = (NAV_MARK_H / LOCKUP_H) * 1;
+    const endScale = NAV_MARK_H / LOCKUP_H;
     const endX = vw >= 768 ? 40 : 20;
     const endY = 32 - NAV_MARK_H / 2;
     return {
@@ -46,8 +46,25 @@ export default function VelaryonLoader({ onDone }: { onDone: () => void }) {
         className="absolute inset-0 bg-black"
         initial={{ opacity: 1 }}
         animate={exiting ? { opacity: 0 } : { opacity: 1 }}
-        transition={{ duration: 0.9, ease: EASE_INOUT }}
+        transition={{ duration: 0.95, ease: EASE_INOUT }}
       />
+      {/* faint horizon + atmospheric haze */}
+      <motion.div
+        aria-hidden
+        className="absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: exiting ? 0 : 1 }}
+        transition={{ duration: 1.2 }}
+      >
+        <div className="absolute inset-x-0 top-1/2 h-px bg-slate-700/30" />
+        <motion.div
+          className="absolute inset-x-0 top-1/2 h-40 -translate-y-1/2"
+          style={{ background: "linear-gradient(to bottom, transparent, rgba(148,163,184,0.05), transparent)" }}
+          initial={{ opacity: 0.9 }}
+          animate={{ opacity: 0.25 }}
+          transition={{ delay: 0.6, duration: 1.6 }}
+        />
+      </motion.div>
 
       <motion.div
         className="absolute left-0 top-0"
@@ -62,39 +79,91 @@ export default function VelaryonLoader({ onDone }: { onDone: () => void }) {
         onAnimationComplete={() => exiting && finish()}
       >
         <div className="flex items-center gap-7">
-          <div className="relative">
+          <div className="relative" style={{ perspective: 900 }}>
             <div className="loader-bob">
               <motion.img
-                src="/assets/logo-mark.png"
+                src="/assets/logo-mark-light.png"
                 alt="Velaryon mark"
                 className="h-[150px] w-auto"
-                initial={{ opacity: 0, scale: 0.32, filter: "blur(14px)" }}
-                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                transition={{ delay: 0.2, duration: 1.15, ease: EASE_OUT }}
+                initial={{ opacity: 0, scale: 0.1, y: 26, rotateX: 14, filter: "blur(9px)" }}
+                animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0, filter: "blur(0px)" }}
+                transition={{ delay: 0.35, duration: 1.6, ease: EASE_APPROACH }}
               />
             </div>
+
+            {/* bow wake: originates at centre, propagates outward, then settles into the mark */}
             <svg
               aria-hidden
-              viewBox="0 0 260 26"
-              className="absolute -bottom-5 left-1/2 h-6 w-[260px] -translate-x-1/2"
+              viewBox="0 0 260 30"
+              className="absolute -bottom-6 left-1/2 h-7 w-[264px] -translate-x-1/2"
               fill="none"
             >
-              <motion.path
-                d="M6 14 Q 45 4 84 14 T 162 14 T 254 14"
-                stroke="#3b526b"
-                strokeWidth="1.4"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: [0, 0.9, 0] }}
-                transition={{ delay: 0.95, duration: 1.2, ease: "easeOut" }}
-              />
-              <motion.path
-                d="M30 21 Q 70 13 110 21 T 230 21"
-                stroke="#2a3b52"
-                strokeWidth="1"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: [0, 0.7, 0] }}
-                transition={{ delay: 1.15, duration: 1.2, ease: "easeOut" }}
-              />
+              <defs>
+                <filter id="wake-wobble" x="-20%" y="-20%" width="140%" height="140%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="2" result="n">
+                    <animate
+                      attributeName="baseFrequency"
+                      values="0.012 0.09;0.016 0.11;0.012 0.09"
+                      dur="4s"
+                      repeatCount="indefinite"
+                    />
+                  </feTurbulence>
+                  <feDisplacementMap in="SourceGraphic" in2="n" scale="5" />
+                </filter>
+              </defs>
+              <g filter="url(#wake-wobble)">
+                {/* inner wake */}
+                <motion.path
+                  d="M130 9 Q 104 2 78 9"
+                  stroke="#aebdd0"
+                  strokeWidth="1.5"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: [0, 0.95, 0] }}
+                  transition={{ delay: 1.05, duration: 1.15, ease: "easeOut" }}
+                />
+                <motion.path
+                  d="M130 9 Q 156 2 182 9"
+                  stroke="#aebdd0"
+                  strokeWidth="1.5"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: [0, 0.95, 0] }}
+                  transition={{ delay: 1.05, duration: 1.15, ease: "easeOut" }}
+                />
+                {/* outer wake — delayed, lower energy */}
+                <motion.path
+                  d="M130 18 Q 82 8 34 18"
+                  stroke="#5c6f8a"
+                  strokeWidth="1.1"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: [0, 0.7, 0] }}
+                  transition={{ delay: 1.3, duration: 1.35, ease: "easeOut" }}
+                />
+                <motion.path
+                  d="M130 18 Q 178 8 226 18"
+                  stroke="#5c6f8a"
+                  strokeWidth="1.1"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: [0, 0.7, 0] }}
+                  transition={{ delay: 1.3, duration: 1.35, ease: "easeOut" }}
+                />
+                {/* secondary ripple */}
+                <motion.path
+                  d="M130 25 Q 96 19 62 25"
+                  stroke="#3b526b"
+                  strokeWidth="0.8"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: [0, 0.5, 0] }}
+                  transition={{ delay: 1.55, duration: 1.2, ease: "easeOut" }}
+                />
+                <motion.path
+                  d="M130 25 Q 164 19 198 25"
+                  stroke="#3b526b"
+                  strokeWidth="0.8"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: [0, 0.5, 0] }}
+                  transition={{ delay: 1.55, duration: 1.2, ease: "easeOut" }}
+                />
+              </g>
             </svg>
           </div>
 
@@ -102,15 +171,15 @@ export default function VelaryonLoader({ onDone }: { onDone: () => void }) {
             <motion.div
               initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0.4 }}
               animate={{ clipPath: "inset(0 0% 0 0)", opacity: 1 }}
-              transition={{ delay: 1.35, duration: 0.85, ease: EASE_OUT }}
+              transition={{ delay: 1.75, duration: 0.85, ease: EASE_APPROACH }}
             >
-              <img src="/assets/logo-wordmark.png" alt="VELARYON" className="h-8 w-auto brightness-[2.2]" />
+              <img src="/assets/logo-wordmark-light.png" alt="VELARYON" className="h-8 w-auto" />
             </motion.div>
             <motion.p
               className="font-mono text-[9px] uppercase tracking-[0.42em] text-mist"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.9, duration: 0.6 }}
+              initial={{ opacity: 0, letterSpacing: "0.7em" }}
+              animate={{ opacity: 1, letterSpacing: "0.42em" }}
+              transition={{ delay: 2.25, duration: 0.7 }}
               onAnimationComplete={() => setExiting(true)}
             >
               Autonomous Maritime Systems
@@ -132,7 +201,7 @@ function ReducedLoader({ onDone }: { onDone: () => void }) {
       transition={{ delay: 0.4, duration: 0.4 }}
       onAnimationComplete={onDone}
     >
-      <img src="/assets/logo-mark.png" alt="Velaryon" className="h-24 w-auto" />
+      <img src="/assets/logo-mark-light.png" alt="Velaryon" className="h-24 w-auto" />
     </motion.div>
   );
 }

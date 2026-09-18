@@ -6,12 +6,15 @@ import { Reveal } from "@/components/Reveal";
 
 const N = 8; // scenes
 
-function sceneOpacity(p: MotionValue<number>, i: number, last = false) {
+function useSceneOpacity(p: MotionValue<number>, i: number, last = false) {
   const s = i / N;
   const e = (i + 1) / N;
-  if (i === 0) return useTransform(p, [s, e - 0.02, e], [1, 1, 0]);
-  if (last) return useTransform(p, [s, s + 0.02, 1], [0, 1, 1]);
-  return useTransform(p, [s, s + 0.02, e - 0.02, e], [0, 1, 1, 0]);
+  const first = useTransform(p, [s, e - 0.02, e], [1, 1, 0]);
+  const lastO = useTransform(p, [s, s + 0.02, 1], [0, 1, 1]);
+  const mid = useTransform(p, [s, s + 0.02, e - 0.02, e], [0, 1, 1, 0]);
+  if (i === 0) return first;
+  if (last) return lastO;
+  return mid;
 }
 
 function Caption({ children, opacity }: { children: string; opacity: MotionValue<number> }) {
@@ -29,14 +32,14 @@ export default function HowItWorksPage() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
 
-  const o0 = sceneOpacity(scrollYProgress, 0);
-  const o1 = sceneOpacity(scrollYProgress, 1);
-  const o2 = sceneOpacity(scrollYProgress, 2);
-  const o3 = sceneOpacity(scrollYProgress, 3);
-  const o4 = sceneOpacity(scrollYProgress, 4);
-  const o5 = sceneOpacity(scrollYProgress, 5);
-  const o6 = sceneOpacity(scrollYProgress, 6);
-  const o7 = sceneOpacity(scrollYProgress, 7, true);
+  const o0 = useSceneOpacity(scrollYProgress, 0);
+  const o1 = useSceneOpacity(scrollYProgress, 1);
+  const o2 = useSceneOpacity(scrollYProgress, 2);
+  const o3 = useSceneOpacity(scrollYProgress, 3);
+  const o4 = useSceneOpacity(scrollYProgress, 4);
+  const o5 = useSceneOpacity(scrollYProgress, 5);
+  const o6 = useSceneOpacity(scrollYProgress, 6);
+  const o7 = useSceneOpacity(scrollYProgress, 7, true);
 
   const routeDraw = useTransform(scrollYProgress, [0.01, 0.1], [0, 1]);
   const vesselIn = useTransform(scrollYProgress, [0.13, 0.2], [0, 1]);
