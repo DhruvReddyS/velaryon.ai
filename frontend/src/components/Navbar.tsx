@@ -74,9 +74,9 @@ export default function Navbar() {
       <motion.header
         data-testid="navbar"
         data-chrome
-        className={`v-nav ${light && !open ? "is-light" : ""}`}
-        initial={{ y: -40, opacity: 0 }}
-        animate={ready ? { y: hidden && !open ? "-120%" : 0, opacity: 1 } : {}}
+        className={`v-nav ${light && !open ? "is-light" : ""} ${ready ? "is-ready" : ""}`}
+        initial={false}
+        animate={{ y: hidden && !open ? "-120%" : 0 }}
         transition={{ duration: 0.8, ease: EASE }}
       >
         <Link to="/" aria-label="Velaryon home" className="v-nav__brand" data-cursor="Home">

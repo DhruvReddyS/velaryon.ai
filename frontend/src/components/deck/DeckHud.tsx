@@ -5,6 +5,7 @@ import { CHAPTERS } from "@/lib/content";
 import { useLoaded } from "@/lib/loader";
 import { sound } from "@/lib/sound";
 import { EASE, useSurfaceTone } from "@/components/kit";
+import Compass from "@/components/deck/Compass";
 
 type LenisLike = { scrollTo: (t: number | string, o?: object) => void };
 const lenis = () => (window as unknown as { __lenis?: LenisLike }).__lenis;
@@ -86,7 +87,7 @@ export default function DeckHud() {
 
   const no = String(active + 1).padStart(2, "0");
   return (
-    <motion.div data-chrome className={`v-hud ${away ? "is-away" : ""} ${light ? "is-light" : ""}`} initial={{ opacity: 0 }} animate={ready ? { opacity: 1 } : {}} transition={{ duration: 1, delay: 0.8 }}>
+    <motion.div data-chrome className={`v-hud ${away ? "is-away" : ""} ${light ? "is-light" : ""} ${active === 0 ? "is-cover" : ""}`} initial={{ opacity: 0 }} animate={ready ? { opacity: 1 } : {}} transition={{ duration: 1, delay: 0.8 }}>
       <div className="v-hud__counter" aria-hidden>
         <span className="v-hud__no">
           <AnimatePresence mode="popLayout" initial={false}>
@@ -104,6 +105,7 @@ export default function DeckHud() {
         <AnimatePresence>{hint && <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><kbd>↓</kbd><kbd>↑</kbd> step through</motion.span>}</AnimatePresence>
         <Link to="/deck" className="v-hud__present" data-cursor="Present" data-testid="hud-present"><kbd>P</kbd> Present</Link>
       </div>
+      <Compass progress={progress} />
       <div className="v-hud__bar" aria-hidden><motion.i style={{ scaleX: progress }} /></div>
       <nav className="v-hud__rail" aria-label="Deck chapters">
         {CHAPTERS.map((c, i) => (

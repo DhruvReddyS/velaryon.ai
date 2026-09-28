@@ -19,6 +19,15 @@
   src: url("/fonts/instrument-serif-latin-400-italic.woff2") format("woff2");
 }
 
+@font-face {
+  font-family: "Archivo Display";
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  src: url("/fonts/archivo-latin-wdth.woff2") format("woff2-variations"), url("/fonts/archivo-latin-wdth.woff2") format("woff2");
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -102,6 +111,7 @@
   --ease-io: cubic-bezier(0.76, 0, 0.24, 1);
   --gutter: clamp(1.1rem, 3.4vw, 3.5rem);
   --serif: "Instrument Serif", Georgia, serif;
+  --display: "Archivo Display", "Geist Variable", sans-serif;
   --mono: "Geist Mono Variable", ui-monospace, monospace;
 }
 
@@ -251,12 +261,9 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
   position: absolute; top: var(--gutter); left: var(--gutter); right: var(--gutter); display: flex; justify-content: space-between;
   font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fog);
 }
-.v-loader__mark { position: absolute; left: 50%; bottom: 50%; translate: -50% 0; overflow: hidden; padding-bottom: 6px; }
-.v-loader__mark img { width: clamp(64px, 8vw, 110px); }
 .v-loader__horizon { position: absolute; left: var(--gutter); right: var(--gutter); top: 50%; height: 1px; background: rgba(255, 255, 255, 0.08); }
 .v-loader__horizon i { position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--chalk) 30%, var(--flare)); transform-origin: 0 50%; }
 .v-loader__foot { position: absolute; left: var(--gutter); right: var(--gutter); top: calc(50% + 1.4rem); display: flex; justify-content: space-between; align-items: flex-start; }
-.v-loader__foot img { width: clamp(120px, 14vw, 190px); opacity: 0.9; }
 .v-loader__count { font-family: var(--mono); font-size: clamp(3rem, 9vw, 8rem); line-height: 0.8; letter-spacing: -0.06em; color: var(--chalk); font-variant-numeric: tabular-nums; }
 
 /* Route curtain */
@@ -404,7 +411,10 @@ a:hover .v-roll > span, a:hover .v-roll::after { transform: translateY(-100%); }
 .d-cover__scroll i { position: relative; width: 1px; height: 3.2rem; background: rgba(255, 255, 255, 0.25); overflow: hidden; }
 .d-cover__scroll i::after { content: ""; position: absolute; left: 0; top: -40%; width: 1px; height: 40%; background: #fff; animation: d-drip 2s var(--ease) infinite; }
 @keyframes d-drip { to { top: 110%; } }
-.d-cover__marquee { position: absolute; left: 16rem; right: 0; bottom: 0.95rem; color: rgba(255, 255, 255, 0.55); }
+.d-cover__marquee { position: absolute; left: 0; right: 0; bottom: 3.9rem; color: rgba(255, 255, 255, 0.5); }
+.d-cover__foot { bottom: 6.4rem !important; }
+.v-compass { transition: opacity 0.6s var(--ease); }
+.v-hud.is-cover .v-compass { opacity: 0; }
 .d-cover__after {
   position: absolute; left: var(--gutter); right: var(--gutter); bottom: 2.4svh; display: flex; justify-content: space-between;
   font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fog);
@@ -1196,3 +1206,66 @@ html.is-presenting, html.is-presenting body { overflow: hidden; height: 100%; ba
   .d-bar { height: 8vh; }
 }
 @media (prefers-reduced-motion: reduce) { .d-cover__sweep { display: none; } }
+
+
+/* ================================================================ display typography
+   Extended grotesk (Archivo, wide axis) for every title-card moment; Geist stays
+   for reading text, Instrument Serif italic for accents, Geist Mono for instruments. */
+.d-display, .d-cover__title, .d-horizon__title, .p-hero__body h1, .p-next__t, .v-footer__call h2,
+.d-command__row, .d-fleet__body h3, .d-fleet__intro .d-display, .d-fleet__outro h3, .p-stack__body h2,
+.p-contact h1, .p-legal h1, .v-menu__list a, .d-loop__centre b, .d-mpanel__body b, .d-mpanel__vt,
+.d-ask h3, .p-cell h3, .p-list__row h3, .d-roadmap__route h3, .d-why__cols h3, .d-anatomy__readout h3,
+.p-disc__item h3, .p-level h3, .p-sent h2, .s-h, .s-cover__title, .s-three h3, .s-fleet h3, .s-loop h3, .s-road h3,
+.d-ocean__num, .d-cov__read b, .s-facts b, .v-footer__giant div {
+  font-family: var(--display);
+  font-stretch: 116%;
+  font-weight: 600;
+  letter-spacing: -0.028em;
+}
+.d-display, .d-cover__title, .d-horizon__title, .p-hero__body h1, .p-next__t, .p-stack__body h2, .p-contact h1, .s-h, .s-cover__title { line-height: 0.92; }
+.d-ocean__num, .d-cov__read b, .s-facts b { font-weight: 400; font-stretch: 110%; letter-spacing: -0.04em; }
+.v-footer__giant div { font-stretch: 125%; font-weight: 700; letter-spacing: -0.03em; font-size: 15.4vw; }
+.v-menu__list a:hover { font-stretch: 100%; }
+
+/* re-scale the widest title cards for the extended face */
+.d-display { font-size: clamp(2.2rem, 6.2vw, 7rem); }
+.d-cover__title { font-size: clamp(3rem, 10.6vw, 13rem); }
+.d-ocean__copy h2 { font-size: clamp(2.4rem, 7.6vw, 8.6rem); }
+.d-horizon__title { font-size: clamp(2.6rem, 9.2vw, 11rem); }
+.p-hero__body h1 { font-size: clamp(2.5rem, 8.4vw, 9.4rem); }
+.p-next__t { font-size: clamp(2.6rem, 9.4vw, 10.4rem); }
+.p-stack__body h2 { font-size: clamp(2.6rem, 8.4vw, 8.6rem); }
+.p-contact h1 { font-size: clamp(2.6rem, 7.8vw, 8.2rem); }
+.d-command__row { font-size: clamp(3.4rem, 11vw, 13rem); }
+.s-h { font-size: 92px; }
+.s-cover__title { font-size: 214px; }
+@media (max-width: 899px) {
+  .d-cover__title { font-size: 10.4vw; }
+  .d-display { font-size: clamp(2rem, 9.4vw, 3.4rem); }
+  .d-ocean__copy h2 { font-size: 10.4vw; }
+  .p-hero__body h1 { font-size: 10.6vw; }
+  .d-horizon__title { font-size: 10.6vw; }
+}
+
+/* ================================================================ logo intro → nav hand-off */
+.v-loader__lockup { position: fixed; z-index: 160; display: flex; align-items: center; gap: 0.75rem; transform-origin: 50% 50%; pointer-events: none; will-change: transform; }
+.v-loader__markmask { display: block; overflow: hidden; padding: 2px 0; }
+.v-loader__markmask img { width: 30px; }
+.v-loader__word { width: 118px; }
+.v-loader__tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fog); }
+.v-nav__brand, .v-nav__links, .v-nav__right { opacity: 0; }
+.v-nav.is-ready .v-nav__brand { opacity: 1; transition: opacity 0s linear 1.2s; }
+.v-nav.is-ready .v-nav__links, .v-nav.is-ready .v-nav__right { opacity: 1; transition: opacity 0.9s var(--ease) 0.8s; }
+@media (prefers-reduced-motion: reduce) { .v-nav.is-ready .v-nav__brand, .v-nav.is-ready .v-nav__links, .v-nav.is-ready .v-nav__right { transition: none; } }
+
+/* ================================================================ heading compass (HUD) */
+.v-compass { position: absolute; left: 50%; bottom: 0.7rem; translate: -50% 0; display: none; flex-direction: column; align-items: center; gap: 0.35rem; }
+.v-compass__window { position: relative; height: 22px; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent); }
+.v-compass__tape { position: absolute; left: 0; top: 0; height: 100%; will-change: transform; }
+.v-compass__t { position: absolute; bottom: 0; width: 1px; height: 5px; background: currentColor; opacity: 0.45; }
+.v-compass__t.is-major { height: 9px; opacity: 0.9; }
+.v-compass__t b { position: absolute; bottom: 11px; left: 50%; translate: -50% 0; font-family: var(--mono); font-size: 9px; font-weight: 400; letter-spacing: 0.1em; }
+.v-compass__caret { position: absolute; left: 50%; bottom: 0; width: 1px; height: 14px; margin-left: -0.5px; background: var(--flare); }
+.v-compass__caret::before { content: ""; position: absolute; top: -4px; left: -3px; border: 3.5px solid transparent; border-top-color: var(--flare); }
+.v-compass__read { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; font-variant-numeric: tabular-nums; }
+@media (min-width: 1100px) { .v-compass { display: flex; } }
