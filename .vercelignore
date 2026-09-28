@@ -1,0 +1,8 @@
+# Vercel serves only the static frontend; the API is deployed separately on Render.
+backend/
+tests/
+test_reports/
+memory/
+asset-archive/
+.emergent/
+render.yaml
