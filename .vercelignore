@@ -1,5 +1,4 @@
-# Vercel serves only the static frontend; the API is deployed separately on Render.
-backend/
+# Frontend project ignores; the backend is its own Vercel project (Root Directory: backend).
 tests/
 test_reports/
 memory/

@@ -16,14 +16,14 @@ ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
 # MongoDB connection
-from lib.db import client, db, ensure_indexes
+from lib.db import close_clients, ensure_indexes, get_db
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     app.state.index_task = asyncio.create_task(ensure_indexes())
     yield
-    client.close()
+    close_clients()
 
 
 app = FastAPI(lifespan=lifespan)
@@ -54,7 +54,7 @@ async def root():
 @api_router.post("/contact", response_model=Enquiry)
 async def create_enquiry(input: EnquiryCreate):
     enquiry = Enquiry(**input.model_dump())
-    await db.enquiries.insert_one(enquiry.model_dump())
+    await get_db().enquiries.insert_one(enquiry.model_dump())
     return enquiry
 
 @api_router.get("/contact", response_model=List[Enquiry])
@@ -63,7 +63,7 @@ async def list_enquiries(x_admin_token: Optional[str] = Header(default=None)):
     expected = os.environ.get("ADMIN_TOKEN")
     if not expected or x_admin_token != expected:
         raise HTTPException(status_code=404, detail="Not Found")
-    docs = await db.enquiries.find({}, {"_id": 0}).to_list(1000)
+    docs = await get_db().enquiries.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
     return docs
 
 
