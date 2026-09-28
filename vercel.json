@@ -5,7 +5,7 @@
   "buildCommand": "cd frontend && npx vite build",
   "outputDirectory": "frontend/dist",
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://velaryon-api.vercel.app/api/:path*" },
+    { "source": "/api/:path*", "destination": "https://velaryon-ai-backend.vercel.app/api/:path*" },
     { "source": "/((?!assets/|media/|fonts/|.*\\..*).*)", "destination": "/index.html" }
   ],
   "headers": [
