@@ -422,7 +422,7 @@ a:hover .v-roll > span, a:hover .v-roll::after { transform: translateY(-100%); }
 }
 @media (min-width: 900px) {
   .d-cover__top span:nth-child(2) { display: inline; }
-  .d-cover__title { bottom: 22svh; }
+  .d-cover__title { bottom: max(22svh, 13.5rem); }
   .d-cover__scroll { display: flex; }
 }
 @media (max-width: 899px) {
@@ -597,7 +597,7 @@ a:hover .v-roll > span, a:hover .v-roll::after { transform: translateY(-100%); }
 .d-loop .node.is-current circle { fill: var(--flare); }
 .d-loop .node .halo { fill: none !important; stroke: var(--flare); stroke-width: 1; opacity: 0.6; animation: d-halo 1.8s var(--ease) infinite; transform-box: fill-box; transform-origin: center; }
 @keyframes d-halo { from { transform: scale(0.6); opacity: 0.9; } to { transform: scale(1.6); opacity: 0; } }
-.d-loop .node text { font-family: var(--mono); font-size: 13px; letter-spacing: 0.16em; fill: rgba(255, 255, 255, 0.4); transition: fill 0.4s; }
+.d-loop .node text { font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; fill: rgba(255, 255, 255, 0.4); transition: fill 0.4s; }
 .d-loop .node.is-on text { fill: rgba(255, 255, 255, 0.8); }
 .d-loop .node.is-current text { fill: var(--flare); }
 .d-loop__centre { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
@@ -608,8 +608,10 @@ a:hover .v-roll > span, a:hover .v-roll::after { transform: translateY(-100%); }
 .d-loop__detail p { margin-top: 0.4rem; color: var(--fog); max-width: 30rem; line-height: 1.55; }
 .d-loop__detail ol { display: none; }
 @media (min-width: 900px) {
-  .d-loop__sticky { grid-template-columns: 1fr minmax(0, 1.3fr) 1fr; grid-template-rows: 1fr; align-items: center; }
-  .d-loop__dial { width: min(76%, calc(100svh - 17rem), 600px); }
+  .d-loop__sticky { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 0.9fr); grid-template-rows: 1fr; align-items: center; column-gap: clamp(2rem, 4vw, 5rem); }
+  .d-loop__head .d-display { font-size: clamp(1.8rem, min(2.9vw, 6vh), 3.9rem); }
+  .d-loop__dial { width: min(60%, calc((100svh - 12rem) * 0.66), 560px); }
+  .d-loop__detail h3 em { font-size: clamp(1.3rem, min(2vw, 4vh), 2.2rem); }
   .d-loop__detail ol { display: grid; gap: 0.6rem; margin-top: 2rem; font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
   .d-loop__detail li { display: flex; align-items: center; gap: 0.8rem; color: rgba(255, 255, 255, 0.3); transition: color 0.4s; }
   .d-loop__detail li::before { content: ""; width: 1.2rem; height: 1px; background: currentColor; transition: width 0.5s var(--ease); }
@@ -986,8 +988,9 @@ a:hover .v-roll > span, a:hover .v-roll::after { transform: translateY(-100%); }
 /* ------------------------------------------------------------------ mission console */
 .m-console { display: grid; border: 1px solid var(--line-strong); background: #050a10; font-family: var(--mono); }
 .m-console__bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.6rem 1.4rem; padding: 0.8rem 1rem; border-bottom: 1px solid var(--line); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fog); }
-.m-console__map { position: relative; aspect-ratio: 100 / 62; border-bottom: 1px solid var(--line); }
-.m-console__map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.m-console__map { position: relative; border-bottom: 1px solid var(--line); }
+.m-console__map svg { aspect-ratio: 100 / 62; }
+.m-console__map svg { display: block; width: 100%; height: auto; }
 .m-wp { fill: var(--abyss); stroke: rgba(233, 238, 242, 0.5); stroke-width: 0.25; }
 .is-done .m-wp { fill: var(--flare); stroke: var(--flare); }
 .m-wp__t { font-family: var(--mono); font-size: 1.5px; letter-spacing: 0.1px; fill: rgba(233, 238, 242, 0.5); }
@@ -1065,7 +1068,7 @@ a:hover .v-roll > span, a:hover .v-roll::after { transform: translateY(-100%); }
 
 /* re-scale the widest title cards for the extended face */
 .d-display { font-size: clamp(2.2rem, 6.2vw, 7rem); }
-.d-cover__title { font-size: clamp(3rem, 10.6vw, 13rem); }
+.d-cover__title { font-size: clamp(3rem, min(10.6vw, 21vh), 13rem); }
 .d-ocean__copy h2 { font-size: clamp(2.4rem, 7.6vw, 8.6rem); }
 .d-horizon__title { font-size: clamp(2.6rem, 9.2vw, 11rem); }
 .p-hero__body h1 { font-size: clamp(2.5rem, 8.4vw, 9.4rem); }
@@ -1111,8 +1114,19 @@ a:hover .v-roll > span, a:hover .v-roll::after { transform: translateY(-100%); }
 .d-loop__detail h3 em, .d-fleet__tag em, .p-stack__body h2 + p em { font-weight: 600 !important; }
 
 /* loop dial word: narrow enough to sit inside the ring */
-.d-loop__centre b { font-family: var(--display); font-stretch: 100%; font-weight: 700; letter-spacing: -0.02em; font-size: clamp(1.1rem, 2.4vw, 2.5rem); max-width: 62%; margin-inline: auto; }
+.d-loop__centre b { font-family: var(--display); font-stretch: 100%; font-weight: 700; letter-spacing: -0.02em; font-size: clamp(1rem, min(2vw, 4.2vh), 2.3rem); }
+.d-loop__centre > div { display: grid; justify-items: center; }
 /* bold extended titles: heavier weight, accent serif sized to sit level */
 .d-display, .d-cover__title, .d-horizon__title, .p-hero__body h1, .p-next__t, .v-footer__call h2, .p-stack__body h2, .p-contact h1, .p-legal h1, .d-fleet__body h3, .d-command__row { font-weight: 700; }
 .d-display em, .d-cover__title em, .d-horizon__title em, .p-hero__body h1 em, .p-contact h1 em, .v-footer__call h2 em { font-size: 1.08em; letter-spacing: -0.01em; }
 .d-cover__title, .d-ocean__copy h2, .d-horizon__title, .p-hero__body h1, .p-stack__body h2 { text-shadow: 0 2px 34px rgba(0, 0, 0, 0.38); }
+
+/* ================================================================ small-screen collision fixes */
+@media (max-width: 1023px) {
+  /* console status moves out of the map so it never covers waypoint labels */
+  .m-console__state { position: static; padding: 0.7rem 1rem; border-top: 1px solid var(--line); flex-wrap: wrap; }
+}
+@media (max-width: 899px) {
+  /* closing title sits in the sky, clear of the call-to-action block */
+  .d-horizon__title { top: 31%; }
+}

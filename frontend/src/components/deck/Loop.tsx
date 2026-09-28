@@ -46,7 +46,7 @@ export default function Loop({ no = chapterNo("loop"), id = "loop" }: { no?: str
             <motion.circle cx={C} cy={C} r={R} className="ring ring--progress" pathLength={1} strokeDasharray="1 1" style={{ strokeDashoffset: reduce ? 0 : offset }} transform={`rotate(-90 ${C} ${C})`} />
             {LOOP.map((s, i) => {
               const q = pt(i);
-              const lbl = pt(i, R + 72);
+              const lbl = pt(i, R + 54);
               return (
                 <g key={s.n} className={`node ${i <= active ? "is-on" : ""} ${i === active ? "is-current" : ""}`}>
                   <circle cx={q.x} cy={q.y} r={i === active ? 11 : 6} />
