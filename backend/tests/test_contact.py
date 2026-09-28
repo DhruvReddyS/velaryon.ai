@@ -1,4 +1,5 @@
 """Backend tests for Velaryon contact endpoints (/api/contact)."""
+import os
 import uuid
 
 
@@ -27,8 +28,11 @@ def test_contact_create_and_persist(client):
     assert "id" in created and isinstance(created["id"], str)
     assert "_id" not in created
 
-    # Verify persistence via GET
-    r2 = client.get("/contact")
+    # Verify persistence via the admin-only listing (skipped when no token is configured)
+    token = os.environ.get("ADMIN_TOKEN")
+    if not token:
+        return
+    r2 = client.get("/contact", headers={"X-Admin-Token": token})
     assert r2.status_code == 200
     items = r2.json()
     assert any(x["email"] == unique_email for x in items)
@@ -53,3 +57,9 @@ def test_contact_invalid_email_returns_422(client):
 def test_contact_missing_fields_returns_422(client):
     r = client.post("/contact", json={"email": "a@b.com"})
     assert r.status_code == 422
+
+
+def test_contact_list_requires_admin_token(client):
+    # Enquiries contain personal data and must never be publicly listable.
+    assert client.get("/contact").status_code == 404
+    assert client.get("/contact", headers={"X-Admin-Token": "wrong"}).status_code == 404

@@ -1,80 +1,73 @@
-import { Link } from "react-router-dom";
-import { Btn, Eyebrow, Frame, PageHero, Reveal } from "@/components/Primitives";
-import { PlatformMedia } from "@/components/home/PlatformSelector";
-import CTA from "@/components/home/CTA";
-import { PLATFORMS } from "@/lib/platforms";
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { NextChapter, PageHero } from "@/components/page";
+import { Cta, Lines, Reveal, Tag } from "@/components/kit";
+import { FLEET, type Vessel } from "@/lib/content";
+import { velaryonMedia as media } from "@/lib/velaryonMedia";
+
+/** Each vessel is a sticky full-screen card; the one underneath recedes as the next arrives. */
+function StackCard({ v, i }: { v: Vessel; i: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress: p } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const scale = useTransform(p, [0, 1], [1, 0.86]);
+  const bright = useTransform(p, [0, 1], ["brightness(1)", "brightness(0.35)"]);
+  const radius = useTransform(p, [0, 1], [0, 24]);
+  return (
+    <div ref={ref} className="p-stack__card" data-testid={`platform-row-${v.id}`}>
+      <motion.div className="p-stack__inner" style={reduce ? undefined : { scale, filter: bright, borderRadius: radius, overflow: "hidden" }}>
+        {v.video && !reduce ? (
+          <video autoPlay muted loop playsInline poster={v.video.poster} style={{ objectPosition: v.position }}>
+            <source media="(max-width: 767px)" src={v.video.mobile} />
+            <source src={v.video.desktop} />
+          </video>
+        ) : (
+          <img src={v.img} alt={`${v.name} — ${v.role}`} loading={i === 0 ? "eager" : "lazy"} style={{ objectPosition: v.position }} />
+        )}
+        <div className="p-stack__shade" />
+        <div className="p-stack__top"><span>{v.index}</span><span>{v.role}</span></div>
+        <div className="p-stack__body">
+          <h2>{v.name}</h2>
+          <p><em>{v.tagline}</em></p>
+          <div className="p-stack__row">
+            <p>{v.summary}</p>
+            <ul>{v.traits.map((t) => <li key={t}>{t}</li>)}</ul>
+            <Cta to={`/platforms/${v.id}`} testId={`platform-row-link-${v.id}`}>View study</Cta>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 export default function PlatformsPage() {
   return (
-    <div data-testid="platforms-page" className="bg-ink">
+    <div data-testid="platforms-page">
       <PageHero
         index="02"
-        title="Platforms"
+        title="Fleet"
         testId="platforms-hero"
-        heading={
-          <>
-            A family of autonomous
-            <br />
-            surface platform concepts.
-          </>
-        }
-        lead="Three working designations, one shared autonomy and systems architecture. Each concept explores a different question about form, configuration and awareness at sea."
-        meta={[
-          { k: "Stage", v: "Concept", signal: true },
-          { k: "Family", v: "3 platforms" },
-        ]}
+        img={media.deck.aerialRun}
+        position="55% 50%"
+        lines={["The fleet.", <em key="e">One core.</em>]}
+        lead="Three visual studies, one shared autonomy and systems direction. Each explores a different question about form, integration and awareness at sea."
+        meta={[{ k: "Status", v: "In development" }, { k: "Studies", v: String(FLEET.length).padStart(2, "0") }]}
       />
-
-      <section className="wrap">
-        {PLATFORMS.map((p, i) => (
-          <article
-            key={p.id}
-            data-testid={`platform-row-${p.id}`}
-            className="grid gap-10 border-b border-line-soft py-20 lg:grid-cols-12 lg:gap-8 md:py-28"
-          >
-            <Reveal className={`lg:col-span-7 ${i % 2 === 1 ? "lg:order-2 lg:col-start-6" : ""}`}>
-              <Link to={`/platforms/${p.id}`} data-testid={`platform-row-media-${p.id}`} className="group block">
-                <Frame className="aspect-[16/10] overflow-hidden bg-carbon">
-                  <div className="h-full w-full transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]">
-                    <PlatformMedia p={p} priority={i === 0} />
-                  </div>
-                </Frame>
-              </Link>
-            </Reveal>
-            <Reveal delay={0.1} className={`flex flex-col justify-center lg:col-span-4 ${i % 2 === 1 ? "lg:order-1 lg:col-start-1" : "lg:col-start-9"}`}>
-              <Eyebrow index={p.code} title={p.role} />
-              <h2 className="display-2 mt-8 text-chalk">{p.name}</h2>
-              <p className="mt-3 text-lg text-chalk/80">{p.tagline}</p>
-              <p className="mt-6 text-sm leading-relaxed text-fog">{p.summary}</p>
-              <ul className="mt-8 space-y-2">
-                {p.descriptors.map((d) => (
-                  <li key={d.k} className="label-xs flex items-center gap-3 text-fog">
-                    <span aria-hidden className="h-px w-4 bg-line" />
-                    {d.v}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-10">
-                <Btn to={`/platforms/${p.id}`} variant="ghost" testId={`platform-row-link-${p.id}`}>
-                  View {p.name}
-                </Btn>
-              </div>
-            </Reveal>
-          </article>
-        ))}
-      </section>
-
-      <section className="wrap py-20 md:py-28">
+      <div className="p-stack">
+        {FLEET.map((v, i) => <StackCard key={v.id} v={v} i={i} />)}
+      </div>
+      <section className="p-section p-section--ink">
+        <div className="p-head">
+          <Tag no="02.1">A note on specifications</Tag>
+          <Lines className="d-display" lines={["Studies,", <em key="e">not spec sheets.</em>]} />
+        </div>
         <Reveal>
-          <p className="label-xs text-fog">A note on specifications</p>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-chalk/80">
-            Velaryon publishes platform concepts, not performance figures. Specifications will be shared
-            as prototypes are built and validated — not before.
+          <p className="p-lede">
+            Velaryon publishes platform studies, not performance figures. Designations and specifications will be shared as prototypes are built and validated — not before.
           </p>
         </Reveal>
       </section>
-
-      <CTA />
+      <NextChapter to="/how-it-works" label="Autonomy" img={media.ocean.distantVessel} />
     </div>
   );
 }

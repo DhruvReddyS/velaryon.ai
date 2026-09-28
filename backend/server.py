@@ -1,6 +1,6 @@
 import asyncio
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, Header, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 import os
@@ -31,11 +31,11 @@ api_router = APIRouter(prefix="/api")
 
 
 class EnquiryCreate(BaseModel):
-    name: str
+    name: str = Field(min_length=1, max_length=120)
     email: EmailStr
-    organization: Optional[str] = None
-    interest: str
-    message: str
+    organization: Optional[str] = Field(default=None, max_length=160)
+    interest: str = Field(min_length=1, max_length=60)
+    message: str = Field(min_length=1, max_length=4000)
 
 class Enquiry(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -58,7 +58,11 @@ async def create_enquiry(input: EnquiryCreate):
     return enquiry
 
 @api_router.get("/contact", response_model=List[Enquiry])
-async def list_enquiries():
+async def list_enquiries(x_admin_token: Optional[str] = Header(default=None)):
+    # Enquiries contain personal data: only readable with the ADMIN_TOKEN secret.
+    expected = os.environ.get("ADMIN_TOKEN")
+    if not expected or x_admin_token != expected:
+        raise HTTPException(status_code=404, detail="Not Found")
     docs = await db.enquiries.find({}, {"_id": 0}).to_list(1000)
     return docs
 
@@ -67,8 +71,8 @@ app.include_router(api_router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_credentials=False,
+    allow_origins=[o.strip() for o in os.environ.get('CORS_ORIGINS', '*').split(',')],
     allow_methods=["*"],
     allow_headers=["*"],
 )

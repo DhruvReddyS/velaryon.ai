@@ -92,3 +92,7 @@ android-sdk/
 credentials.json
 *.key
 .credentials
+
+# Local source masters (not shipped) and editor tooling
+asset-archive/
+.claude/

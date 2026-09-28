@@ -1,101 +1,58 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { PLATFORMS } from "@/lib/platforms";
-
-const COLS = [
-  {
-    title: "Company",
-    links: [
-      { to: "/mission", label: "Mission" },
-      { to: "/company", label: "Company" },
-      { to: "/newsroom", label: "Newsroom" },
-      { to: "/contact", label: "Contact" },
-    ],
-  },
-  {
-    title: "Platforms",
-    links: PLATFORMS.map((p) => ({ to: `/platforms/${p.id}`, label: `${p.code} — ${p.name}` })),
-  },
-  {
-    title: "Systems",
-    links: [
-      { to: "/how-it-works", label: "Autonomy" },
-      { to: "/technology", label: "Technology" },
-      { to: "/platforms", label: "Platform family" },
-    ],
-  },
-];
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { velaryonMedia as media } from "@/lib/velaryonMedia";
+import { BRAND, NAV } from "@/lib/content";
+import { Cta, useUtcClock } from "@/components/kit";
 
 export default function Footer() {
+  const ref = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
+  const clock = useUtcClock();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["45%", "0%"]);
+  const spacing = useTransform(scrollYProgress, [0, 1], ["0.12em", "-0.04em"]);
+  const toTop = () => {
+    const lenis = (window as unknown as { __lenis?: { scrollTo: (n: number, o?: object) => void } }).__lenis;
+    if (lenis) lenis.scrollTo(0, { duration: 2.2 }); else window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <footer data-testid="footer" className="border-t border-line-soft bg-ink">
-      <div className="wrap grid gap-14 py-20 lg:grid-cols-12 lg:gap-8">
-        <div className="lg:col-span-4">
-          <img src="/assets/logo-mark-light.png" alt="Velaryon" className="h-10 w-auto" />
-          <p className="mt-8 max-w-xs text-sm leading-relaxed text-fog">
-            An Australian maritime technology company developing autonomous surface platform concepts
-            and the systems that operate them.
-          </p>
-          <div className="label-xs mt-8 flex items-center gap-2 text-fog">
-            <span aria-hidden className="signal-dot h-1.5 w-1.5 bg-signal" />
-            Concept stage · Designed in Australia
+    <footer ref={ref} className="v-footer" data-testid="footer">
+      <div className="v-footer__top">
+        <div className="v-footer__call">
+          <p className="k-tag"><span>∞</span><i />Transmission open</p>
+          <h2>Build what <em>comes next.</em></h2>
+          <Cta href={`mailto:${BRAND.email}`} testId="footer-email">{BRAND.email}</Cta>
+        </div>
+        <div className="v-footer__cols">
+          <div>
+            <p>Index</p>
+            {NAV.map((l) => <Link key={l.to} to={l.to}>{l.label}</Link>)}
+          </div>
+          <div>
+            <p>Company</p>
+            <Link to="/contact">Contact</Link>
+            <Link to="/newsroom">Newsroom</Link>
+            <Link to="/privacy">Privacy</Link>
+            <Link to="/terms">Terms</Link>
+          </div>
+          <div>
+            <p>Status</p>
+            <span className="v-footer__live"><i />{BRAND.status}</span>
+            <span>UTC {clock}</span>
+            <button onClick={toTop} data-cursor="Top">Back to top ↑</button>
           </div>
         </div>
-
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-6">
-          {COLS.map((c) => (
-            <div key={c.title}>
-              <p className="label-xs text-fog">{c.title}</p>
-              <ul className="mt-6 space-y-3">
-                {c.links.map((l) => (
-                  <li key={l.to + l.label}>
-                    <Link
-                      to={l.to}
-                      data-testid={`footer-link-${l.label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                      className="text-sm text-chalk/80 transition-colors duration-300 hover:text-signal"
-                    >
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <div className="lg:col-span-2">
-          <p className="label-xs text-fog">Enquiries</p>
-          <a
-            href="mailto:hello@velaryon.com"
-            data-testid="footer-email-link"
-            className="mt-6 block text-sm text-chalk/80 transition-colors duration-300 hover:text-signal"
-          >
-            hello@velaryon.com
-          </a>
-        </div>
       </div>
-
-      <div className="wrap pb-8">
-        <img
-          src="/assets/logo-wordmark-light.png"
-          alt=""
-          aria-hidden
-          className="w-full max-w-[880px] opacity-90"
-          loading="lazy"
-        />
+      <div className="v-footer__giant" aria-hidden>
+        <motion.div style={reduce ? undefined : { y, letterSpacing: spacing }}>VELARYON</motion.div>
       </div>
-
-      <div className="border-t border-line-soft">
-        <div className="wrap label-xs flex flex-col gap-4 py-6 text-fog sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 Velaryon. All rights reserved.</p>
-          <div className="flex gap-8">
-            <Link to="/privacy" data-testid="footer-privacy-link" className="transition-colors hover:text-chalk">
-              Privacy
-            </Link>
-            <Link to="/terms" data-testid="footer-terms-link" className="transition-colors hover:text-chalk">
-              Terms
-            </Link>
-          </div>
-        </div>
+      <div className="v-footer__base">
+        <img src={media.brand.mark} alt="" />
+        <span>© {new Date().getFullYear()} {BRAND.name}</span>
+        <span>{BRAND.category}</span>
+        <span>{BRAND.pillars.join(" · ")}</span>
       </div>
     </footer>
   );

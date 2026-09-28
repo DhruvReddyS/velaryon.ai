@@ -1,83 +1,81 @@
-import { Eyebrow, Frame, PageHero, Reveal, Rule } from "@/components/Primitives";
-import CTA from "@/components/home/CTA";
+import { NextChapter, PageHero } from "@/components/page";
+import { Lines, ParallaxImg, Reveal, ScrubWords, Tag } from "@/components/kit";
+import Missions from "@/components/deck/Missions";
+import { velaryonMedia as media, srcSet } from "@/lib/velaryonMedia";
 
 const PROBLEMS = [
-  { n: "01", t: "Vast", c: "Australia alone is responsible for one of the largest maritime jurisdictions in the world. Crewed vessels cannot be everywhere at once." },
-  { n: "02", t: "Costly", c: "Every hour a crewed vessel spends at sea is an hour of people, fuel, food and risk. Persistent presence has always been expensive." },
-  { n: "03", t: "Repetitive", c: "Much of the work at sea is patrol, survey and inspection — long, repetitive tasks that are exactly what autonomy is good at." },
+  { n: "01", t: "Vast", c: "The ocean covers immense distances. Crewed vessels cannot be everywhere at once." },
+  { n: "02", t: "Costly", c: "Every hour at sea is an hour of people, fuel, food and risk. Persistent presence has always been expensive." },
+  { n: "03", t: "Repetitive", c: "Much of the work at sea is patrol, survey and inspection — long, repetitive tasks autonomy is suited to." },
 ];
 
 const BELIEFS = [
-  "Autonomy should extend people, not replace their judgement.",
-  "A platform should be shaped around its mission, not the other way around.",
-  "Software is the product. The vessel is how it goes to sea.",
-  "Say what you have built. Not what you hope to build.",
+  ["Autonomy should extend people,", "not replace their judgement."],
+  ["A platform should be shaped", "around its mission."],
+  ["Software is the product.", "The vessel is how it goes to sea."],
+  ["Say what you have built.", "Not what you hope to build."],
 ];
 
 export default function MissionPage() {
   return (
-    <div data-testid="mission-page" className="bg-ink">
+    <div data-testid="mission-page">
       <PageHero
         index="01"
         title="Mission"
         testId="mission-hero"
-        heading={
-          <>
-            Presence at sea shouldn't be limited by the people you can put on it.
-          </>
-        }
+        img={media.hero.sunset}
+        position="50% 60%"
+        lines={["Presence,", <em key="e">without limits.</em>]}
         lead="Velaryon's mission is to make maritime presence persistent, precise and scalable through autonomy."
+        meta={[{ k: "Domain", v: "Maritime" }, { k: "Focus", v: "Autonomy" }]}
       />
 
-      <section className="wrap py-24 md:py-32">
-        <Reveal>
-          <Eyebrow index="01.1" title="The problem" />
-        </Reveal>
-        <div className="mt-12 grid divide-y divide-line-soft md:grid-cols-3 md:divide-x md:divide-y-0">
+      <section className="p-section p-section--ink">
+        <Tag no="01.1">Statement</Tag>
+        <div className="p-gap">
+          <ScrubWords className="p-statement" accent={["people"]} text="Presence at sea shouldn't be limited by the number of people you can put on it." />
+        </div>
+      </section>
+
+      <section className="p-section">
+        <div className="p-head">
+          <Tag no="01.2">The problem</Tag>
+          <Lines className="d-display" lines={["Three reasons", <em key="e">the sea resists.</em>]} />
+        </div>
+        <div className="p-grid3">
           {PROBLEMS.map((p, i) => (
-            <Reveal key={p.n} delay={0.08 * i}>
-              <div data-testid={`problem-${p.t.toLowerCase()}`} className={`py-8 ${i > 0 ? "md:pl-10" : ""} ${i < PROBLEMS.length - 1 ? "md:pr-10" : ""}`}>
-                <p className="label-xs text-fog">{p.n}</p>
-                <h2 className="mt-8 text-3xl font-medium tracking-tight text-chalk">{p.t}</h2>
-                <p className="mt-4 text-sm leading-relaxed text-fog">{p.c}</p>
+            <Reveal key={p.n} delay={i * 0.08} className="p-cell">
+              <span className="p-cell__n">{p.n}</span>
+              <h3 data-testid={`problem-${p.t.toLowerCase()}`}>{p.t}</h3>
+              <p>{p.c}</p>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <Missions no="01.3" />
+
+      <ParallaxImg src={media.deck.aerialCoast} srcSet={srcSet(media.deck.aerialCoast)} alt="Velaryon platform study underway along a coastline" className="p-band" amount={14} />
+
+      <section className="p-section p-section--light">
+        <div className="p-head">
+          <Tag no="01.4">What we believe</Tag>
+          <Lines className="d-display d-display--dark" lines={["Principles", <em key="e">before product.</em>]} />
+        </div>
+        <div className="p-list">
+          {BELIEFS.map(([a, b], i) => (
+            <Reveal key={a} delay={i * 0.05}>
+              <div className="p-list__row" data-testid={`belief-${i}`}>
+                <span>{String(i + 1).padStart(2, "0")}</span>
+                <h3>{a}</h3>
+                <p>{b}</p>
               </div>
             </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="relative isolate overflow-hidden">
-        <Frame className="mx-6 aspect-[21/9] overflow-hidden bg-carbon md:mx-10 xl:mx-16">
-          <img
-            src="/assets/vessel-sunset.webp"
-            alt="Velaryon autonomous surface vessel concept underway"
-            loading="lazy"
-            className="h-full w-full object-cover"
-            style={{ objectPosition: "50% 60%" }}
-          />
-        </Frame>
-      </section>
-
-      <section className="wrap py-24 md:py-32">
-        <div className="grid gap-12 lg:grid-cols-12">
-          <Reveal className="lg:col-span-4">
-            <Eyebrow index="01.2" title="What we believe" />
-          </Reveal>
-          <div className="lg:col-span-8">
-            <Rule />
-            {BELIEFS.map((b, i) => (
-              <Reveal key={b} delay={0.06 * i}>
-                <div data-testid={`belief-${i}`} className="grid grid-cols-[48px_1fr] gap-4 border-b border-line py-8">
-                  <span className="label-xs pt-2 text-fog">{String(i + 1).padStart(2, "0")}</span>
-                  <p className="display-3 text-chalk">{b}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <CTA light />
+      <NextChapter to="/platforms" label="The fleet" img={media.deck.aerialRun} />
     </div>
   );
 }

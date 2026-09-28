@@ -1,54 +1,55 @@
 import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
-import { EASE } from "@/components/Primitives";
+import { animate, motion, useReducedMotion } from "motion/react";
+import { velaryonMedia as media } from "@/lib/velaryonMedia";
+import { EASE, EASE_IO } from "@/components/kit";
 
-export default function VelaryonLoader({ onDone }: { onDone: () => void }) {
+/**
+ * Opening title card: counter runs to 100 while the mark surfaces from the
+ * horizon, then the frame splits along the horizon line to reveal the cover.
+ */
+export default function VelaryonLoader({ onReveal, onGone }: { onReveal: () => void; onGone: () => void }) {
   const reduce = useReducedMotion();
-  const [exiting, setExiting] = useState(false);
+  const [count, setCount] = useState(0);
+  const [exit, setExit] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setExiting(true), reduce ? 300 : 1350);
-    return () => clearTimeout(t);
-  }, [reduce]);
+    if (reduce) {
+      onReveal();
+      const t = window.setTimeout(onGone, 200);
+      return () => window.clearTimeout(t);
+    }
+    const c = animate(0, 100, { duration: 1.9, ease: [0.65, 0, 0.35, 1], onUpdate: (v) => setCount(Math.round(v)) });
+    const t1 = window.setTimeout(() => { setExit(true); onReveal(); }, 2150);
+    const t2 = window.setTimeout(onGone, 3250);
+    return () => { c.stop(); window.clearTimeout(t1); window.clearTimeout(t2); };
+  }, [onReveal, onGone, reduce]);
+
+  const half = (side: "top" | "bottom") => (
+    <motion.div
+      className={`v-loader__half v-loader__half--${side}`}
+      animate={exit ? { y: side === "top" ? "-100%" : "100%" } : { y: 0 }}
+      transition={{ duration: 1, ease: EASE_IO }}
+    />
+  );
 
   return (
-    <motion.div
-      data-testid="velaryon-loader"
-      role="status"
-      aria-label="Velaryon loading"
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-ink"
-      initial={{ opacity: 1 }}
-      animate={{ opacity: exiting ? 0 : 1 }}
-      transition={{ duration: 0.5, ease: EASE }}
-      onAnimationComplete={() => exiting && onDone()}
-    >
-      <motion.img
-        src="/assets/logo-mark-light.png"
-        alt="Velaryon"
-        className="h-14 w-auto md:h-16"
-        initial={reduce ? false : { opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: EASE }}
-      />
-      <motion.img
-        src="/assets/logo-wordmark-light.png"
-        alt=""
-        aria-hidden
-        className="mt-6 h-3 w-auto"
-        initial={reduce ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.25, duration: 0.6 }}
-      />
-      <div className="absolute inset-x-0 bottom-0 h-px bg-line-soft">
-        <motion.div
-          className="h-full origin-left bg-signal"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: reduce ? 0.2 : 1.25, ease: [0.4, 0, 0.2, 1] }}
-        />
-      </div>
-      <p className="label-xs absolute bottom-6 left-6 text-fog md:left-10">Autonomous maritime systems</p>
-      <p className="label-xs absolute right-6 bottom-6 text-fog md:right-10">Australia</p>
-    </motion.div>
+    <div className="v-loader" role="status" aria-label="Loading Velaryon">
+      {half("top")}
+      {half("bottom")}
+      <motion.div className="v-loader__stage" animate={exit ? { opacity: 0, scale: 0.96 } : { opacity: 1 }} transition={{ duration: 0.5, ease: EASE }}>
+        <div className="v-loader__meta">
+          <span>Velaryon</span>
+          <span>Autonomous maritime systems</span>
+        </div>
+        <div className="v-loader__mark">
+          <motion.img src={media.brand.mark} alt="" initial={reduce ? false : { y: "115%" }} animate={{ y: "0%" }} transition={{ duration: 1.3, delay: 0.15, ease: EASE }} />
+        </div>
+        <div className="v-loader__horizon"><motion.i style={{ scaleX: count / 100 }} /></div>
+        <div className="v-loader__foot">
+          <motion.img src={media.brand.wordmark} alt="Velaryon" initial={reduce ? false : { opacity: 0, letterSpacing: "0.4em", filter: "blur(6px)" }} animate={{ opacity: 1, filter: "blur(0px)" }} transition={{ duration: 1.2, delay: 0.5, ease: EASE }} />
+          <span className="v-loader__count">{String(count).padStart(3, "0")}</span>
+        </div>
+      </motion.div>
+    </div>
   );
 }

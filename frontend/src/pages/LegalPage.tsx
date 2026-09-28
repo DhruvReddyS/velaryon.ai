@@ -1,21 +1,17 @@
-import { Eyebrow } from "@/components/Primitives";
+import { Lines, Tag } from "@/components/kit";
+import { BRAND } from "@/lib/content";
 
 export default function LegalPage({ title }: { title: string }) {
   return (
-    <div data-testid={`${title.toLowerCase()}-page`} className="min-h-screen bg-ink pt-36 pb-28 md:pt-44">
-      <div className="wrap max-w-3xl">
-        <Eyebrow index="L" title={title} />
-        <h1 className="display-2 mt-10 text-chalk">{title}</h1>
-        <p className="mt-10 text-base leading-relaxed text-fog">
-          This {title.toLowerCase()} page is a placeholder. Final legal copy for Velaryon will be
-          published here before public launch.
+    <div data-testid={`${title.toLowerCase().replace(/\s+/g, "-")}-page`} style={{ minHeight: "100svh", background: "var(--ink)" }}>
+      <div className="p-legal">
+        <Tag no="L">{title}</Tag>
+        <Lines as="h1" lines={[title]} />
+        <p>
+          This {title.toLowerCase()} page is a placeholder. Final legal copy for Velaryon will be published here before public launch.
         </p>
-        <p className="mt-6 text-base leading-relaxed text-fog">
-          For any questions in the meantime, contact{" "}
-          <a href="mailto:hello@velaryon.com" className="text-chalk underline underline-offset-4 hover:text-signal">
-            hello@velaryon.com
-          </a>
-          .
+        <p>
+          For any questions in the meantime, contact <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a>.
         </p>
       </div>
     </div>

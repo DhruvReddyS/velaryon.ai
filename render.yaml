@@ -1,0 +1,22 @@
+# Render Blueprint — FastAPI contact API (free web service).
+# Dashboard → New → Blueprint → pick this repo. Then set the secret env vars below.
+services:
+  - type: web
+    name: velaryon-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements-prod.txt
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: MONGO_URL        # MongoDB Atlas free-tier connection string
+        sync: false
+      - key: DB_NAME
+        value: velaryon
+      - key: CORS_ORIGINS     # e.g. https://velaryon.vercel.app
+        sync: false
+      - key: ADMIN_TOKEN      # long random string; needed to read enquiries
+        generateValue: true
