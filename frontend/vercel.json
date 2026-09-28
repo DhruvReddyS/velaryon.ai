@@ -4,13 +4,32 @@
   "buildCommand": "npx vite build",
   "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://velaryon-ai-backend.vercel.app/api/:path*" },
-    { "source": "/((?!assets/|media/|fonts/|.*\\..*).*)", "destination": "/index.html" }
+    {
+      "source": "/api",
+      "destination": "https://velaryon-ai-backend.vercel.app/api/"
+    },
+    {
+      "source": "/api/",
+      "destination": "https://velaryon-ai-backend.vercel.app/api/"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://velaryon-ai-backend.vercel.app/api/:path*"
+    },
+    {
+      "source": "/((?!api/|api$|assets/|media/|fonts/|.*\\..*).*)",
+      "destination": "/index.html"
+    }
   ],
   "headers": [
     {
       "source": "/(media|fonts|assets)/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
   ]
 }
