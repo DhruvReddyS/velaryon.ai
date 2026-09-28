@@ -92,7 +92,6 @@ export default function Navbar() {
         </nav>
         <div className="v-nav__right">
           <SoundToggle />
-          <Link to="/deck" className="v-nav__present" data-testid="nav-present" data-cursor="Present"><RollText>Present</RollText></Link>
           <Link to="/contact" className="v-nav__contact" data-testid="nav-contact"><RollText>Contact</RollText></Link>
           <button ref={burger} className={`v-nav__burger ${open ? "is-open" : ""}`} onClick={() => setOpen(!open)} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="site-menu" data-testid="nav-menu-toggle">
             <span>{open ? "Close" : "Menu"}</span>
@@ -124,7 +123,7 @@ export default function Navbar() {
             </nav>
             <motion.div className="v-menu__foot" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8, ease: EASE }}>
               <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a>
-              <Link to="/deck">Present the deck ↗</Link>
+              <span>{BRAND.pillars.join(" · ")}</span>
               <span>UTC {clock}</span>
             </motion.div>
           </motion.div>

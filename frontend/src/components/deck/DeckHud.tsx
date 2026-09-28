@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import { CHAPTERS } from "@/lib/content";
 import { useLoaded } from "@/lib/loader";
@@ -37,7 +36,6 @@ function stops() {
 /** Pitch-deck HUD: slide counter, chapter title, progress, chapter rail and deck keyboard control. */
 export default function DeckHud() {
   const ready = useLoaded();
-  const navigate = useNavigate();
   const [active, setActive] = useState(0);
   const [away, setAway] = useState(false);
   const [hint, setHint] = useState(true);
@@ -71,7 +69,6 @@ export default function DeckHud() {
       if (e.metaKey || e.ctrlKey || e.altKey || t.closest("input, textarea, select, [contenteditable]") || document.documentElement.classList.contains("is-menu-open")) return;
       const fwd = ["ArrowDown", "ArrowRight", "PageDown"].includes(e.key);
       const back = ["ArrowUp", "ArrowLeft", "PageUp"].includes(e.key);
-      if (e.key === "p" || e.key === "P") { e.preventDefault(); navigate("/deck"); return; }
       if (!fwd && !back) return;
       e.preventDefault();
       setHint(false);
@@ -83,7 +80,7 @@ export default function DeckHud() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [navigate]);
+  }, []);
 
   const no = String(active + 1).padStart(2, "0");
   return (
@@ -103,7 +100,6 @@ export default function DeckHud() {
       </div>
       <div className="v-hud__keys">
         <AnimatePresence>{hint && <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><kbd>↓</kbd><kbd>↑</kbd> step through</motion.span>}</AnimatePresence>
-        <Link to="/deck" className="v-hud__present" data-cursor="Present" data-testid="hud-present"><kbd>P</kbd> Present</Link>
       </div>
       <Compass progress={progress} />
       <div className="v-hud__bar" aria-hidden><motion.i style={{ scaleX: progress }} /></div>

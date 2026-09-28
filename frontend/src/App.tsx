@@ -21,7 +21,6 @@ const CompanyPage = lazy(() => import("@/pages/CompanyPage"));
 const ContactPage = lazy(() => import("@/pages/ContactPage"));
 const NewsroomPage = lazy(() => import("@/pages/NewsroomPage"));
 const LegalPage = lazy(() => import("@/pages/LegalPage"));
-const DeckPage = lazy(() => import("@/pages/DeckPage"));
 
 type LenisWindow = { __lenis?: Lenis };
 
@@ -43,15 +42,14 @@ function RouteCurtain({ path }: { path: string }) {
 }
 
 export default function App() {
-  const [ready, setReady] = useState(() => window.location.pathname.startsWith("/deck"));
-  const [loader, setLoader] = useState(() => !window.location.pathname.startsWith("/deck"));
+  const [ready, setReady] = useState(false);
+  const [loader, setLoader] = useState(true);
   const location = useLocation();
   const onReveal = useCallback(() => setReady(true), []);
   const onGone = useCallback(() => setLoader(false), []);
-  const presenting = location.pathname.startsWith("/deck");
 
   useEffect(() => {
-    const titles: Record<string, string> = { "/": "Intelligence at sea", "/deck": "Company deck", "/mission": "Mission", "/platforms": "Fleet", "/how-it-works": "Autonomy", "/technology": "Technology", "/company": "Company", "/contact": "Contact", "/newsroom": "Newsroom", "/privacy": "Privacy", "/terms": "Terms" };
+    const titles: Record<string, string> = { "/": "Intelligence at sea", "/mission": "Mission", "/platforms": "Fleet", "/how-it-works": "Autonomy", "/technology": "Technology", "/company": "Company", "/contact": "Contact", "/newsroom": "Newsroom", "/privacy": "Privacy", "/terms": "Terms" };
     const key = location.pathname.startsWith("/platforms/") ? "/platforms" : location.pathname;
     document.title = `Velaryon — ${titles[key] ?? "Not found"}`;
   }, [location.pathname]);
@@ -83,18 +81,17 @@ export default function App() {
 
   return (
     <LoaderContext.Provider value={ready}>
-      {loader && !presenting && <VelaryonLoader onReveal={onReveal} onGone={onGone} />}
+      {loader && <VelaryonLoader onReveal={onReveal} onGone={onGone} />}
       <RouteCurtain path={location.pathname} />
       <Cursor />
-      {!presenting && <div className="v-grain" aria-hidden />}
-      {!presenting && <div className="v-vignette" aria-hidden />}
+      <div className="v-grain" aria-hidden />
+      <div className="v-vignette" aria-hidden />
       <a href="#main" className="v-skip">Skip to content</a>
-      {!presenting && <Navbar />}
+      <Navbar />
       <main id="main" tabIndex={-1}>
         <Suspense fallback={<div className="min-h-svh bg-abyss" />}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/deck" element={<DeckPage />} />
             <Route path="/mission" element={<MissionPage />} />
             <Route path="/platforms" element={<PlatformsPage />} />
             <Route path="/platforms/:id" element={<PlatformDetailPage />} />
@@ -110,7 +107,7 @@ export default function App() {
           </Routes>
         </Suspense>
       </main>
-      {!presenting && <Footer />}
+      <Footer />
       <Toaster />
     </LoaderContext.Provider>
   );

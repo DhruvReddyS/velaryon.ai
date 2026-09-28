@@ -34,7 +34,7 @@ export default function Horizon() {
           <>
             <motion.div className="d-bar d-bar--top" style={{ scaleY: bars }} aria-hidden />
             <motion.div className="d-bar d-bar--bottom" style={{ scaleY: bars }} aria-hidden>
-              <motion.span style={{ opacity: fin }}>Velaryon · End of deck · Press P to present</motion.span>
+              <motion.span style={{ opacity: fin }}>Velaryon · Intelligence at sea</motion.span>
             </motion.div>
           </>
         )}

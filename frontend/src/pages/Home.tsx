@@ -13,7 +13,6 @@ import Horizon from "@/components/deck/Horizon";
 /**
  * The home page is the company deck — ten slides, one continuous scroll:
  * hook → problem → insight → product → system → proof → why now → roadmap → ask → close.
- * Press P for presenter mode (/deck).
  */
 export default function Home() {
   return (

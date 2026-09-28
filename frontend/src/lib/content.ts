@@ -195,17 +195,3 @@ export const TECH = [
   { n: "04", t: "Remote operations", c: "Shore-side supervision that shows operators what the platform sees and lets them redirect at any time." },
   { n: "05", t: "Platform architecture", c: "Hull forms and superstructures shaped around the systems they carry — variants sharing one approach." },
 ];
-
-/** Speaker notes for presenter mode, keyed by deck slide id. */
-export const DECK_NOTES: Record<string, string> = {
-  cover: "Velaryon builds autonomous surface platforms and the software that commands them — as one system.",
-  problem: "The ocean is enormous and economically critical. Persistent presence is still limited by crewed hulls on station.",
-  insight: "Our thesis: presence should scale with software and platforms, not with the number of people at sea.",
-  solution: "One integrated stack — platform, software, autonomy — designed together rather than bolted together.",
-  fleet: "Three platform studies share one autonomy core. Designations and specifications are released only once validated.",
-  system: "The autonomy loop runs continuously on-platform. People define the mission; the platform executes within limits.",
-  proof: "Illustrative geometry: watched area grows with platform count. Autonomy makes 'more platforms' an economic option.",
-  whynow: "Three converging shifts make this buildable now: mature autonomy software, small compute, and rising demand for presence.",
-  roadmap: "Where we are today and the path to sea trials and validation.",
-  ask: "Who we're looking to build with — investors, operating partners and engineers.",
-};
