@@ -23,14 +23,6 @@
   src: url("/fonts/cormorant-garamond-wght-italic.woff2") format("woff2");
 }
 
-/* Title face — Michroma: light, ultra-wide, aerospace / film title-card. One weight. */
-@font-face {
-  font-family: "Velaryon Title";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/michroma-latin-400.woff2") format("woff2");
-}
 @font-face {
   font-family: "Archivo Display";
   font-style: normal;
@@ -124,7 +116,6 @@
   --gutter: clamp(1.1rem, 3.4vw, 3.5rem);
   --serif: "Velaryon Serif", Georgia, serif;
   --display: "Archivo Display", "Geist Variable", sans-serif;
-  --title: "Velaryon Title", "Archivo Display", sans-serif;
   --mono: "Geist Mono Variable", ui-monospace, monospace;
 }
 
@@ -1069,7 +1060,7 @@ a:hover .v-roll > span, a:hover .v-roll::after { transform: translateY(-100%); }
 }
 .d-display, .d-cover__title, .d-horizon__title, .p-hero__body h1, .p-next__t, .p-stack__body h2, .p-contact h1 { line-height: 0.92; }
 .d-ocean__num, .d-cov__read b { font-weight: 400; font-stretch: 110%; letter-spacing: -0.04em; }
-.v-footer__giant div { font-stretch: 125%; font-weight: 700; letter-spacing: -0.03em; font-size: 15.4vw; }
+.v-footer__giant div { font-stretch: 125%; font-weight: 700; letter-spacing: -0.03em; font-size: 11.5vw; }
 .v-menu__list a:hover { font-stretch: 100%; }
 
 /* re-scale the widest title cards for the extended face */
@@ -1119,39 +1110,9 @@ a:hover .v-roll > span, a:hover .v-roll::after { transform: translateY(-100%); }
 .d-thesis__text { font-weight: 500; letter-spacing: -0.015em; }
 .d-loop__detail h3 em, .d-fleet__tag em, .p-stack__body h2 + p em { font-weight: 600 !important; }
 
-/* ================================================================ title-card face
-   Michroma carries every big title moment; Archivo Wide stays the workhorse for
-   h3s, numerals and UI. Sizes are trimmed ~14% because Michroma runs wider. */
-.d-display, .d-cover__title, .d-horizon__title, .p-hero__body h1, .p-next__t, .v-footer__call h2,
-.d-command__row, .p-stack__body h2, .p-contact h1, .p-legal h1, .v-menu__list a,
-.d-fleet__body h3, .v-footer__giant div {
-  font-family: var(--title);
-  font-weight: 400;
-  font-stretch: normal;
-  letter-spacing: -0.035em;
-}
-.v-menu__list a:hover { letter-spacing: -0.02em; }
-.d-display { font-size: clamp(1.9rem, 5.3vw, 6rem); line-height: 0.98; }
-.d-cover__title { font-size: clamp(2.6rem, 9.1vw, 11.2rem); line-height: 0.95; }
-.d-ocean__copy h2 { font-size: clamp(2.1rem, 6.5vw, 7.4rem); }
-.d-horizon__title { font-size: clamp(2.2rem, 7.9vw, 9.4rem); }
-.p-hero__body h1 { font-size: clamp(2.2rem, 7.2vw, 8rem); line-height: 0.98; }
-.p-next__t { font-size: clamp(2.2rem, 8vw, 9rem); }
-.p-stack__body h2 { font-size: clamp(2.2rem, 7.2vw, 7.4rem); }
-.p-contact h1 { font-size: clamp(2.2rem, 6.7vw, 7rem); }
-.d-command__row { font-size: clamp(2.9rem, 9.4vw, 11rem); }
-.d-fleet__body h3 { font-size: clamp(1.5rem, 2.9vw, 2.9rem); }
-.d-loop__centre b { font-family: var(--display); font-stretch: 100%; font-weight: 600; letter-spacing: -0.02em; font-size: clamp(1.1rem, 2.4vw, 2.5rem); max-width: 62%; margin-inline: auto; }
-.v-menu__list a { font-size: clamp(2rem, 6.6vh, 5rem); }
-.v-footer__giant div { font-size: 12vw; letter-spacing: -0.02em; }
-/* the serif accent sits a touch larger than the light, wide title face */
-.d-display em, .d-cover__title em, .d-horizon__title em, .p-hero__body h1 em, .p-contact h1 em, .v-footer__call h2 em { font-size: 1.14em; letter-spacing: -0.01em; }
-@media (max-width: 899px) {
-  .d-cover__title { font-size: 8.9vw; }
-  .d-display { font-size: clamp(1.7rem, 8vw, 2.9rem); }
-  .d-ocean__copy h2 { font-size: 8.9vw; }
-  .p-hero__body h1 { font-size: 9vw; }
-  .d-horizon__title { font-size: 9vw; }
-  .p-next__t { font-size: 9.6vw; }
-}
+/* loop dial word: narrow enough to sit inside the ring */
+.d-loop__centre b { font-family: var(--display); font-stretch: 100%; font-weight: 700; letter-spacing: -0.02em; font-size: clamp(1.1rem, 2.4vw, 2.5rem); max-width: 62%; margin-inline: auto; }
+/* bold extended titles: heavier weight, accent serif sized to sit level */
+.d-display, .d-cover__title, .d-horizon__title, .p-hero__body h1, .p-next__t, .v-footer__call h2, .p-stack__body h2, .p-contact h1, .p-legal h1, .d-fleet__body h3, .d-command__row { font-weight: 700; }
+.d-display em, .d-cover__title em, .d-horizon__title em, .p-hero__body h1 em, .p-contact h1 em, .v-footer__call h2 em { font-size: 1.08em; letter-spacing: -0.01em; }
 .d-cover__title, .d-ocean__copy h2, .d-horizon__title, .p-hero__body h1, .p-stack__body h2 { text-shadow: 0 2px 34px rgba(0, 0, 0, 0.38); }
