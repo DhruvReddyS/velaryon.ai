@@ -196,7 +196,7 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
 .k-marquee__track { display: inline-flex; animation: k-marquee var(--k-speed, 40s) linear infinite; animation-direction: var(--k-dir, normal); }
 .k-marquee__row { display: inline-flex; }
 .k-marquee__row span { display: inline-flex; align-items: center; gap: 2.2rem; padding-right: 2.2rem; font-family: var(--mono); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; }
-.k-marquee__row i { color: var(--flare); font-style: normal; font-size: 9px; }
+.k-marquee__row i { display: inline-block; width: 1.6rem; height: 1px; background: var(--flare); opacity: 0.7; }
 @keyframes k-marquee { to { transform: translateX(-50%); } }
 
 .k-parallax { position: relative; overflow: hidden; }
@@ -629,7 +629,7 @@ a:hover .v-roll > span, a:hover .v-roll::after { transform: translateY(-100%); }
 .d-command .k-tag span { color: var(--abyss); }
 .d-command__row { display: flex; width: max-content; white-space: nowrap; font-size: clamp(4rem, 13vw, 15rem); line-height: 0.86; letter-spacing: -0.065em; font-weight: 500; text-transform: uppercase; will-change: transform; }
 .d-command__row span { display: inline-flex; align-items: center; gap: 0.25em; padding-right: 0.25em; }
-.d-command__row i { font-style: normal; font-size: 0.3em; }
+.d-command__row i { display: inline-block; width: 0.55em; height: 0.07em; background: currentColor; }
 .d-command__row--b em { font-family: var(--serif); font-style: italic; text-transform: none; letter-spacing: -0.03em; font-weight: 400; }
 .d-command__copy { margin: clamp(3rem, 6vw, 5rem) var(--gutter) 0; display: grid; gap: 2rem; }
 .d-command__copy p { font-size: clamp(1.4rem, 2.6vw, 2.4rem); letter-spacing: -0.035em; line-height: 1.1; max-width: 32ch; }

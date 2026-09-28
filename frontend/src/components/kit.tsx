@@ -124,7 +124,7 @@ export function Count({ to, suffix = "", duration = 2.2, className }: { to: numb
 export function Marquee({ items, className = "", speed = 40, reverse = false }: { items: string[]; className?: string; speed?: number; reverse?: boolean }) {
   const row = (
     <div className="k-marquee__row" aria-hidden>
-      {items.map((it, i) => <span key={i}>{it}<i>✦</i></span>)}
+      {items.map((it, i) => <span key={i}>{it}<i /></span>)}
     </div>
   );
   return (

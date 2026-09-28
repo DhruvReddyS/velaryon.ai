@@ -14,7 +14,7 @@ function Card({ v, i, p, count }: { v: Vessel; i: number; p: MotionValue<number>
   return (
     <article className="d-fleet__card">
       <Link to={`/platforms/${v.id}`} className="d-fleet__media" data-cursor="View" data-testid={`fleet-card-${v.id}`}>
-        <motion.img src={v.video?.poster ?? v.img} srcSet={srcSet(v.video?.poster ?? v.img)} sizes="90vw" decoding="async" alt={`${v.name} — ${v.role}`} loading="lazy" style={{ x: reduce ? 0 : imgX, objectPosition: v.position }} />
+        <motion.img src={v.video?.poster ?? v.img} srcSet={srcSet(v.video?.poster ?? v.img)} sizes="90vw" decoding="async" alt={`${v.name}, ${v.role}`} loading="lazy" style={{ x: reduce ? 0 : imgX, objectPosition: v.position }} />
         {v.video && !reduce && (
           <motion.video autoPlay muted loop playsInline preload="metadata" poster={v.video.poster} style={{ x: imgX, objectPosition: v.position }} aria-hidden>
             <source media="(max-width: 767px)" src={v.video.mobile} />
@@ -69,12 +69,12 @@ export default function Fleet() {
         <motion.div ref={track} className="d-fleet__track" style={{ x }}>
           <div className="d-fleet__intro">
             <h2 className="d-display">Three studies.<br /><em>One autonomous core.</em></h2>
-            <p>A family of surface platform directions sharing one autonomy and systems architecture. Each explores a different question — mission, form, awareness.</p>
+            <p>A family of surface platform directions sharing one autonomy and systems architecture. Each explores a different question: mission, form and awareness.</p>
           </div>
           {FLEET.map((v, i) => <Card key={v.id} v={v} i={i} p={p} count={FLEET.length} />)}
           <div className="d-fleet__outro">
             <p className="d-fleet__outro-k">Designations & specifications</p>
-            <h3>Released as they're <em>validated</em> — not before.</h3>
+            <h3>Released once they're <em>validated</em> at sea.</h3>
             <Cta to="/platforms" testId="fleet-all">Explore the fleet</Cta>
           </div>
         </motion.div>

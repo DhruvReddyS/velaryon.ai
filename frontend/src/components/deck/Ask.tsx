@@ -7,7 +7,7 @@ export function Crew() {
   if (!CREW.length) {
     return (
       <p className="d-ask__team-empty">
-        <span>Founding team</span> Profiles are shared directly with investors and partners — <a href={`mailto:${BRAND.email}`}>request an introduction ↗</a>
+        <span>Founding team</span> Profiles are shared directly with investors and partners. <a href={`mailto:${BRAND.email}`}>Request an introduction ↗</a>
       </p>
     );
   }

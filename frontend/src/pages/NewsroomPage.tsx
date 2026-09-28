@@ -11,7 +11,7 @@ export default function NewsroomPage() {
         testId="newsroom-hero"
         img={media.ocean.distantWake}
         lines={["Signals from", <em key="e">Velaryon.</em>]}
-        lead="Company announcements, engineering notes and milestones will be published here as they happen. Nothing will be dressed up as more than it is."
+        lead="Company announcements, engineering notes and milestones will be published here as they happen."
       />
       <section className="p-section p-section--ink">
         <Tag no="07.1">Latest</Tag>

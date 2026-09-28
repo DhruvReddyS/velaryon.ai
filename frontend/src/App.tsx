@@ -51,7 +51,7 @@ export default function App() {
   useEffect(() => {
     const titles: Record<string, string> = { "/": "Intelligence at sea", "/mission": "Mission", "/platforms": "Fleet", "/how-it-works": "Autonomy", "/technology": "Technology", "/company": "Company", "/contact": "Contact", "/newsroom": "Newsroom", "/privacy": "Privacy", "/terms": "Terms" };
     const key = location.pathname.startsWith("/platforms/") ? "/platforms" : location.pathname;
-    document.title = `Velaryon — ${titles[key] ?? "Not found"}`;
+    document.title = `Velaryon | ${titles[key] ?? "Not found"}`;
   }, [location.pathname]);
 
   useEffect(() => {

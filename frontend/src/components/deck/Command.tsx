@@ -18,10 +18,10 @@ export default function Command({ no = "01" }: { no?: string }) {
     <section id="command" ref={ref} className="d-command" data-theme="light">
       <Tag no={no} className="d-command__tag">Command</Tag>
       <motion.div className="d-command__row" style={reduce ? undefined : { x: a, skewX: skew }} aria-hidden>
-        {ROW_A.map((t, i) => <span key={i}>{t}<i>✦</i></span>)}
+        {ROW_A.map((t, i) => <span key={i}>{t}<i /></span>)}
       </motion.div>
       <motion.div className="d-command__row d-command__row--b" style={reduce ? undefined : { x: b, skewX: skew }} aria-hidden>
-        {ROW_B.map((t, i) => <span key={i}><em>{t}</em><i>✦</i></span>)}
+        {ROW_B.map((t, i) => <span key={i}><em>{t}</em><i /></span>)}
       </motion.div>
       <div className="d-command__copy">
         <Lines as="p" lines={["People define the mission.", "The platform executes within its limits."]} />

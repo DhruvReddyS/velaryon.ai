@@ -32,7 +32,7 @@ export default function PlatformDetailPage() {
         </div>
       </section>
 
-      <ParallaxImg src={v.img} alt={`${v.name} — ${v.role}`} className="p-band" position={v.position} amount={12} />
+      <ParallaxImg src={v.img} alt={`${v.name}, ${v.role}`} className="p-band" position={v.position} amount={12} />
 
       <section className="p-section">
         <div className="p-head">

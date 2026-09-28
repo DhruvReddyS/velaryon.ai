@@ -40,7 +40,7 @@ export default function Ocean() {
 
         <div className="d-ocean__head">
           <Tag no={chapterNo("ocean")}>The problem</Tag>
-          <span className="d-ocean__beat">{String(beat + 1).padStart(2, "0")} — {String(n).padStart(2, "0")}</span>
+          <span className="d-ocean__beat">{String(beat + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}</span>
         </div>
 
         <div className="d-ocean__copy">

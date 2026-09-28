@@ -27,7 +27,7 @@ export default function Cover() {
     <section id="cover" ref={ref} className="d-cover" data-testid="hero" data-stops="0">
       <div className="d-cover__sticky">
         <motion.div className="d-cover__after" style={reduce ? { opacity: 0 } : { opacity: afterFade, y: afterY }}>
-          <span>Velaryon — company deck</span>
+          <span>Velaryon / Company overview</span>
           <span>Vol. 01 / {new Date().getFullYear()}</span>
         </motion.div>
 
@@ -58,7 +58,7 @@ export default function Cover() {
 
           <motion.div className="d-cover__foot" style={reduce ? undefined : { opacity: chromeFade }}>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={ready ? { opacity: 1, y: 0 } : {}} transition={{ duration: 1, delay: 0.8, ease: EASE }}>
-              Autonomous surface platforms and the software that commands them — engineered as one system, for an ocean that never stands still.
+              Autonomous surface platforms and the software that commands them, engineered as one system for an ocean that never stands still.
             </motion.p>
             <motion.div className="d-cover__scroll" initial={{ opacity: 0 }} animate={ready ? { opacity: 1 } : {}} transition={{ duration: 1, delay: 1.1 }}>
               <span>Scroll to begin</span>

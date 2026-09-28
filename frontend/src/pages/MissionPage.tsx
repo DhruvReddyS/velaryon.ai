@@ -6,7 +6,7 @@ import { velaryonMedia as media, srcSet } from "@/lib/velaryonMedia";
 const PROBLEMS = [
   { n: "01", t: "Vast", c: "The ocean covers immense distances. Crewed vessels cannot be everywhere at once." },
   { n: "02", t: "Costly", c: "Every hour at sea is an hour of people, fuel, food and risk. Persistent presence has always been expensive." },
-  { n: "03", t: "Repetitive", c: "Much of the work at sea is patrol, survey and inspection — long, repetitive tasks autonomy is suited to." },
+  { n: "03", t: "Repetitive", c: "Much of the work at sea is patrol, survey and inspection. Long, repetitive tasks that suit autonomy well." },
 ];
 
 const BELIEFS = [

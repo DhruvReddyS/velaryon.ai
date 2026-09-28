@@ -84,7 +84,7 @@ export const FLEET: Vessel[] = [
     name: "Platform One",
     role: "Mission adaptable",
     tagline: "Shaped around the mission.",
-    summary: "A platform study where power, autonomy and mission integration are designed as one architecture — not added later.",
+    summary: "A platform study where power, autonomy and mission integration are designed as one architecture from day one.",
     detail: "This study places the mission area at the centre of the design. Platform, power and autonomy are considered together as one architecture rather than as separate additions.",
     img: media.platformVision.concept01.hero,
     position: "50% 55%",
@@ -119,14 +119,14 @@ export const FLEET: Vessel[] = [
 
 export const vesselById = (id?: string) => FLEET.find((v) => v.id === id);
 
-export const RENDER_NOTE = "Design visualisation — not a photograph of a built vessel.";
+export const RENDER_NOTE = "Design visualisation. Not a photograph of a built vessel.";
 
 /**
  * Zones visible on the engineering visualisation (percent of a 16:9 frame).
  * Labels describe design intent for each zone, not verified internals.
  */
 export const ANATOMY = [
-  { id: "hull", x: 13, y: 57, side: "right", dir: "up", label: "Bow & hull form", copy: "Hull geometry is treated as part of the system — shaped around what it carries." },
+  { id: "hull", x: 13, y: 57, side: "right", dir: "up", label: "Bow & hull form", copy: "Hull geometry is treated as part of the system and shaped around what it carries." },
   { id: "super", x: 52, y: 45, side: "left", dir: "down", label: "Superstructure", copy: "Design intent: a protected volume for power, compute and integration." },
   { id: "mast", x: 60.8, y: 21, side: "left", dir: "up", label: "Mast", copy: "Design intent: an elevated zone for sensing with a clear view of the horizon." },
   { id: "antennas", x: 65, y: 13, side: "right", dir: "up", label: "Antenna array", copy: "Design intent: links that keep mission state visible to people ashore." },
@@ -163,7 +163,7 @@ export const roadmapStatus = (i: number) => (i < ROADMAP_CURRENT ? "Complete" : 
 export const AUDIENCES = [
   { k: "Investors", t: "Back the build.", c: "An early seat in autonomous maritime infrastructure.", to: "/contact" },
   { k: "Partners", t: "Shape the missions.", c: "Operators and industry defining what the platform must do.", to: "/contact" },
-  { k: "Engineers", t: "Build the core.", c: "Autonomy, perception and naval systems — from first principles.", to: "/company" },
+  { k: "Engineers", t: "Build the core.", c: "Autonomy, perception and naval systems, built from first principles.", to: "/company" },
 ];
 
 /**
@@ -193,5 +193,5 @@ export const TECH = [
   { n: "02", t: "Autonomy software", c: "Mission logic, navigation rules and behaviour arbitration running on-platform, with defined limits and explainable outputs." },
   { n: "03", t: "Systems integration", c: "A common electrical, data and mechanical architecture so sensing, compute and mission systems integrate rather than bolt on." },
   { n: "04", t: "Remote operations", c: "Shore-side supervision that shows operators what the platform sees and lets them redirect at any time." },
-  { n: "05", t: "Platform architecture", c: "Hull forms and superstructures shaped around the systems they carry — variants sharing one approach." },
+  { n: "05", t: "Platform architecture", c: "Hull forms and superstructures shaped around the systems they carry, with every variant sharing one approach." },
 ];

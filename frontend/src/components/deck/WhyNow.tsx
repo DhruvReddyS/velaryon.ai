@@ -41,7 +41,7 @@ export default function WhyNow() {
       <ClipImg src={media.deck.aerialRun} srcSet={srcSet(media.deck.aerialRun)} alt="Velaryon platform study underway, leaving a long wake" className="d-why__img" position="55% 50%" />
       <div className="d-why__caption">
         <span>Fig. 01</span>
-        <span>Design visualisation — a platform study underway.</span>
+        <span>Design visualisation of a platform study underway.</span>
       </div>
     </section>
   );

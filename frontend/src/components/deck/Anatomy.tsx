@@ -48,7 +48,7 @@ export default function Anatomy({ no = "01", id = "anatomy" }: { no?: string; id
           <AnimatePresence mode="wait">
             <motion.div key={active} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.45, ease: EASE }}>
               <span>{current ? `System ${String(active + 1).padStart(2, "0")}` : "Scanning"}</span>
-              <h3>{current ? current.label : "Platform, software and autonomy — designed together."}</h3>
+              <h3>{current ? current.label : "Platform, software and autonomy, designed together."}</h3>
               {!current && <p>{RENDER_NOTE}</p>}
               {current && <p>{current.copy}</p>}
             </motion.div>

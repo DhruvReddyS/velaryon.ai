@@ -12,7 +12,7 @@ export default function Missions({ no = "01" }: { no?: string }) {
       <div className="d-missions__head">
         <Tag no={no}>Mission contexts</Tag>
         <Lines className="d-display" lines={["Where the system", <em key="e">earns its purpose.</em>]} />
-        <p>Development directions — not claims of deployed capability.</p>
+        <p>Areas we are developing for. Not deployed services.</p>
       </div>
       <div className="d-missions__panels">
         {MISSIONS.map((m, i) => (

@@ -152,7 +152,7 @@ export default function Coverage() {
       <div className="d-cov__stage">
         <canvas ref={canvas} aria-label={`Illustration: ${n} platforms watching ${pct}% of a coastal region`} role="img" />
         <span className="d-cov__corner">Region / illustrative</span>
-        <p className="d-cov__note">Illustrative geometric model — each platform watches a fixed radius. Not a performance claim.</p>
+        <p className="d-cov__note">Illustrative geometric model. Each platform watches a fixed radius. Not a performance claim.</p>
       </div>
     </section>
   );

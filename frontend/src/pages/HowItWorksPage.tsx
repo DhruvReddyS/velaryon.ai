@@ -19,7 +19,7 @@ export default function HowItWorksPage() {
         testId="autonomy-hero"
         img={media.ocean.distantVessel}
         lines={["People direct.", <em key="e">Platforms execute.</em>]}
-        lead="How Velaryon's autonomy is being designed to work — from the loop that runs on the platform to the controls people keep."
+        lead="How Velaryon's autonomy is being designed to work, from the loop that runs on the platform to the controls people keep."
       />
 
       <section className="p-section p-section--ink">

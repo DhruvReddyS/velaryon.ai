@@ -7,7 +7,7 @@ import { velaryonMedia as media } from "@/lib/velaryonMedia";
 const PRINCIPLES = [
   ["Mission", "Make presence at sea more persistent, precise and scalable through autonomy."],
   ["Vision", "An ocean where autonomous platforms execute and people direct the mission."],
-  ["Approach", "Develop platform, software and autonomy together — from system definition toward open water."],
+  ["Approach", "Develop platform, software and autonomy together, from system definition to open water."],
 ];
 
 export default function CompanyPage() {

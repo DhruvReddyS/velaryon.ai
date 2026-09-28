@@ -67,7 +67,7 @@ export default function ContactPage() {
               <label className="p-field"><input data-testid="contact-email-input" required type="email" value={form.email} onChange={set("email")} placeholder=" " /><span>Email *</span></label>
               <label className="p-field is-wide"><input data-testid="contact-org-input" value={form.organization} onChange={set("organization")} placeholder=" " /><span>Organisation</span></label>
               <label className="p-field is-wide"><textarea data-testid="contact-message-input" required rows={4} value={form.message} onChange={set("message")} placeholder=" " /><span>Message *</span></label>
-              {status === "error" && <p className="p-form__err is-wide" data-testid="contact-error">Something went wrong — please try again or email us directly.</p>}
+              {status === "error" && <p className="p-form__err is-wide" data-testid="contact-error">Something went wrong. Please try again or email us directly.</p>}
               <div className="is-wide">
                 <button type="submit" className="k-cta" data-testid="contact-form-submit" disabled={status === "sending"}>
                   <span className="k-cta__label" data-text={status === "sending" ? "Sending…" : "Send message"}><span>{status === "sending" ? "Sending…" : "Send message"}</span></span>

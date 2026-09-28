@@ -22,7 +22,7 @@ function StackCard({ v, i }: { v: Vessel; i: number }) {
             <source src={v.video.desktop} />
           </video>
         ) : (
-          <img src={v.img} alt={`${v.name} — ${v.role}`} loading={i === 0 ? "eager" : "lazy"} style={{ objectPosition: v.position }} />
+          <img src={v.img} alt={`${v.name}, ${v.role}`} loading={i === 0 ? "eager" : "lazy"} style={{ objectPosition: v.position }} />
         )}
         <div className="p-stack__shade" />
         <div className="p-stack__top"><span>{v.index}</span><span>{v.role}</span></div>
@@ -63,7 +63,7 @@ export default function PlatformsPage() {
         </div>
         <Reveal>
           <p className="p-lede">
-            Velaryon publishes platform studies, not performance figures. Designations and specifications will be shared as prototypes are built and validated — not before.
+            Velaryon publishes platform studies, not performance figures. Designations and specifications will be shared once prototypes are built and validated.
           </p>
         </Reveal>
       </section>
